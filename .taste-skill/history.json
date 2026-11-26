@@ -1,0 +1,28 @@
+{
+ "palettes": [
+  "cool-grey-cobalt"
+ ],
+ "types": [
+  "mona"
+ ],
+ "dealt": [
+  "funnel",
+  "gabarito",
+  "outfit",
+  "work-sans",
+  "newsreader",
+  "archivo"
+ ],
+ "moments": [
+  {
+   "id": "marquee-row",
+   "at": "2026-11-21T06:00:52.162Z",
+   "seed": "93a533a2"
+  },
+  {
+   "id": "line-carries-colour",
+   "at": "2026-11-23T16:32:01.659Z",
+   "seed": "911d5794"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+software (site-kind software): personal portfolio of a fullstack developer; main action: Download CV / view projects.
+deal: palette cool-grey-cobalt (cool off-white ground and a cobalt accent answer the trade: the work is web software shown as product UI screenshots, which read cleanly on a cool neutral); type mona (Mona Sans + Geist Mono, taken over the dealt funnel/gabarito/outfit because none of the three ships a Vietnamese subset and the page is vi-first); radius soft; buttons arrow; mark initial; nav nav-centre; footer footer-statement; close close-word; rhythm dark-band; ground sky; hero collage (moment in card loop; moments: cursor-spotlight).
+grade: light by default, evening (dark) grade from prefers-color-scheme on load or a click on the nav toggle; dark action #7ba0ff (OKLCH hue 266.7, same as the light accent 267.2; 7.75:1 on #0b0c0e).
+
+Sections (to plan per screen in Phase 3): hero, projects (featured 4 + compact list of 8), skills, journey + work (one timeline, education first), contact + footer (footer.closing).

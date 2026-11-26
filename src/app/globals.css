@@ -1,0 +1,115 @@
+/*
+  Tailwind v4 without preflight: the taste-skill kit (public/assets/system.css) owns the base
+  styles, grid, type and spacing. Tailwind is glue only, mapped onto the kit's tokens, so there is
+  still one system. Never add a second spacing, type or radius scale here.
+*/
+@layer theme, utilities;
+/* prefix(tw): Tailwind utilities are written `tw:flex`, so they never collide with the kit's own
+   class names (.grid, .start-10, .span-3, .wrap, .link, .muted ...). */
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-action: var(--action);
+  --color-action-ink: var(--action-ink);
+  --font-heading: var(--font-display);
+  --font-body: var(--font-text);
+  --font-code: var(--font-mono);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+}
+
+/* ------------------------------------------------------------------ page CSS
+   Only what the kit lacks (system.md). */
+
+/* The page's buttons in the logo's colours (owner's ask): the primary filled with the logo's
+   cyan-to-blue sweep, a dark label on it; the secondary (the page's one outlined button everywhere,
+   header redesign) on the page's dark with the same sweep as its 1px border. The border is drawn
+   as a second background clipped to the border box, under the dark one clipped to the padding box.
+   Hover lifts the colour a step and adds a soft cyan glow; press settles it. These outrank the
+   kit's .btn--primary / .btn--secondary and the motion layer's hover. */
+html .btn.btn--primary {
+  background: var(--brand-gradient);
+  color: #060912;
+  border-color: transparent;
+}
+html:not([data-motion="off"]) .btn.btn--primary:hover {
+  background: var(--brand-gradient);
+  filter: brightness(1.08) saturate(1.05);
+  box-shadow: 0 10px 28px -12px color-mix(in oklab, var(--grad-from) 70%, transparent);
+}
+html:not([data-motion="off"]) .btn.btn--primary:active {
+  filter: brightness(0.95);
+  box-shadow: none;
+}
+
+html .btn.btn--secondary {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    var(--brand-gradient) border-box;
+  color: var(--ink);
+}
+html:not([data-motion="off"]) .btn.btn--secondary:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(color-mix(in oklab, var(--bg) 88%, var(--grad-from)), color-mix(in oklab, var(--bg) 88%, var(--grad-to))) padding-box,
+    var(--brand-gradient) border-box;
+  box-shadow: 0 8px 24px -14px color-mix(in oklab, var(--grad-from) 60%, transparent);
+}
+html:not([data-motion="off"]) .btn.btn--secondary:active {
+  background:
+    linear-gradient(color-mix(in oklab, var(--bg) 80%, var(--grad-from)), color-mix(in oklab, var(--bg) 80%, var(--grad-to))) padding-box,
+    var(--brand-gradient) border-box;
+  box-shadow: none;
+}
+
+/* A phone (owner's ask): sections as tall as what they hold, not a full screen each, and a tighter
+   rhythm (64 above a section's heading, 32 under its last row, instead of the kit's 96 / 48), so a
+   short section (the projects wall, the skills orbit) never leaves a screen's worth of empty ground
+   before the next. The kit's phone default is a section at least its screens; the owner chose the
+   shorter rhythm (the checker's section-height still passes at 390). */
+@media (max-width: 639px) {
+  :root {
+    --padt: 64px;
+    --padb: 32px;
+    --head-gap: 24px;
+  }
+  html main > :is(section, .section):not(.hero, .section--hero),
+  html footer.closing,
+  html main > [data-moment][data-moment]:not(.is-live) {
+    min-height: 0;
+  }
+}
+
+/* The availability dot (the hero's pill and the close's): one accent dot with a soft ring. */
+.status-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+/* Evening: the whole page is a dark ground, so black one-tone marks (GitHub, Next.js, Express) turn
+   white, as icon.css does inside .ic-dark; a light tile keeps them as drawn. */
+:root[data-theme="dark"] .ic-ink {
+  filter: invert(1);
+}
+:root[data-theme="dark"] .ic-tile:not(.ic-tile--ink, .ic-tile--brand) .ic-ink {
+  filter: none;
+}
+
+/* Evening: the footer-statement slab is dark (tokens.css), so its button keeps the page's action,
+   the same look as the nav's button (one action, one look). */
+:root[data-theme="dark"] .footer--statement {
+  --action: var(--p-action);
+  --action-ink: var(--p-action-ink);
+}
+

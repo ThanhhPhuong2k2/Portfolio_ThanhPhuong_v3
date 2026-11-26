@@ -1,0 +1,206 @@
+/*
+  Projects page CSS (owner's reference picture and asks, Phase 5): the lit frame, its three running
+  columns of the projects' own screens and the pill. One screen. No pause disc (owner's decision).
+*/
+
+/* the h2's grey half is its own sentence on its own line (system.md, Type: run-on) */
+.projects__count {
+  display: block;
+}
+
+/* ------------------------------------------------------------ the frame: no panel of its own (owner's
+   ask, Phase 5): no ground, border, shadow or radius, so the running screens stand on the page's own
+   dark ground and dissolve into it on all four sides; it fills what the heading leaves of the screen */
+.projects .projects__wall {
+  position: relative;
+  display: block;
+  padding: 0;
+  height: clamp(380px, calc(100svh - var(--padt) - var(--padb) - 190px), 600px);
+  overflow: hidden;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.projects__stage > .projects__cols {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-5);
+}
+/* the screens fade into the page at the top and bottom (where they run out) and at both sides:
+   two still layers of the page's ground laid over the wall, not a mask (a two-layer mask over the
+   running columns was re-drawn on every frame: performance audit). Under the button (z 3). */
+.projects__stage::before,
+.projects__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.projects__stage::before {
+  background: linear-gradient(to bottom, var(--bg), transparent 14%, transparent 86%, var(--bg));
+}
+.projects__stage::after {
+  background: linear-gradient(to right, var(--bg), transparent 6%, transparent 94%, var(--bg));
+}
+.projects__col {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------ the running columns
+   Each track holds its column twice; moving it by half its height (its gap included through the
+   padding) loops without a seam. Slow and linear: a calm drift, never a slide show. The first and
+   third columns rise, the second falls. */
+.projects__track {
+  --gap: var(--s-5);
+  display: grid;
+  gap: var(--gap);
+  margin: 0;
+  padding: 0 0 var(--gap);
+  list-style: none;
+  animation: projects-rise var(--dur-col, 46s) linear infinite;
+}
+.projects__col:nth-child(2) .projects__track {
+  --dur-col: 54s;
+  animation-name: projects-fall;
+}
+.projects__col:nth-child(3) .projects__track {
+  --dur-col: 50s;
+}
+@keyframes projects-rise {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes projects-fall {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+/* the pointer on the frame or the keyboard in it holds every column */
+.projects__wall:hover .projects__track,
+.projects__wall:focus-within .projects__track,
+.projects[data-idle] .projects__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .projects__track {
+    animation: none;
+  }
+}
+
+/* one project's screen: a link named by its project, no caption (house rule 1) */
+.projects__shot {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 20px 44px -24px rgb(0 0 0 / 0.7);
+  transition: translate 200ms var(--ease, ease), box-shadow 200ms var(--ease, ease);
+}
+.projects__shot img {
+  object-fit: cover;
+  object-position: 50% 0;
+  transition: scale 600ms var(--ease, ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  /* a linked picture lifts 2px and zooms 1.03 inside its frame (house rule 5) */
+  .projects__shot:hover {
+    translate: 0 -2px;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 60%, transparent), 0 24px 48px -22px rgb(0 0 0 / 0.75);
+  }
+  .projects__shot:hover img {
+    scale: 1.03;
+  }
+}
+.projects__shot:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: -2px;
+}
+
+/* ------------------------------------------------------------ the button: the page of all projects
+   The page's secondary button (its shape, height and outline from the kit), placed over the wall's
+   middle, with a shadow so it reads over the screenshots. */
+.projects__stage > .projects__pill {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  gap: var(--s-2);
+  white-space: nowrap;
+  box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.7);
+}
+.projects__pill > svg {
+  flex: none;
+}
+/* see-through over the wall (owner's ask: the button hides less of the screenshots): the page's dark
+   at 70% (the label keeps 4.5:1 over a white screenshot), the screenshots blurred behind it so the label still reads; solid again on hover.
+   The logo-sweep border is a ring drawn by ::before (the page's secondary draws it as a background
+   under the fill, which would show through a see-through fill). */
+html .projects__stage > .projects__pill.btn--secondary {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  backdrop-filter: blur(14px) saturate(120%);
+}
+html .projects__stage > .projects__pill.btn--secondary::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--brand-gradient);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+html:not([data-motion="off"]) .projects__stage > .projects__pill.btn--secondary:hover {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+}
+/* ------------------------------------------------------------ tablet and phone: two columns */
+@media (max-width: 1023px) {
+  .projects__stage > .projects__cols {
+    inset: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-4);
+  }
+  .projects__track {
+    --gap: var(--s-4);
+  }
+  /* the third column waits for a wider screen; the page of all projects names every one */
+  .projects__col:nth-child(3) {
+    display: none;
+  }
+}
+@media (max-width: 639px) {
+  .projects .projects__wall {
+    height: min(460px, calc(100lvh - var(--padt) - var(--padb) - 170px));
+  }
+  .projects__stage > .projects__cols {
+    inset: 0;
+    gap: var(--s-3);
+  }
+  .projects__track {
+    --gap: var(--s-3);
+  }
+  /* a phone's buttons run the column's width (owner's ask, taste-skill checklist): the button spans
+     the wall from edge to edge, still centred on its height */
+  .projects__stage > .projects__pill {
+    left: 0;
+    right: 0;
+    width: 100%;
+    translate: 0 -50%;
+    justify-content: center;
+  }
+}

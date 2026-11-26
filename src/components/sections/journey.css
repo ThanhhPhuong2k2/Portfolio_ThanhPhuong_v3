@@ -1,0 +1,541 @@
+/*
+  Journey page CSS (owner's redesign: slides on the kit's pinned-chapters). The hold, the scrub and
+  the frame's crossfade are the kit's moment.css and moment.js; this file draws the chapter's own
+  parts (its period and count, the achievements, the tech row), the visual (the years set large, the
+  marks, the ruler) and turns the live list into slides: one chapter on the stage at a time.
+*/
+
+/* ---- the chapter's words ------------------------------------------------- */
+.journey .mo-pc__step h3 {
+  display: grid;
+  gap: var(--s-2);
+}
+.journey__period {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  font: 500 var(--t-label) / 1.2 var(--font-mono);
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.journey__count {
+  font-variant-numeric: tabular-nums;
+}
+.journey__title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.08;
+  letter-spacing: var(--display-tracking);
+  color: var(--ink);
+}
+.journey__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  font-size: var(--t-small);
+  font-weight: 500;
+  /* body text, so the ink (7:1), not the muted grey */
+  color: var(--ink);
+}
+.journey__badge {
+  color: var(--accent);
+  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+.journey__text {
+  display: block;
+  margin-top: var(--s-3);
+}
+
+.journey__body {
+  display: grid;
+  gap: var(--s-5);
+}
+
+/* achievements: a short phrase; the full sentence opens under it */
+.journey__achievements {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.journey__achievements > li {
+  border-bottom: 1px solid var(--line);
+}
+.journey__achievements summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-4);
+  min-height: 44px;
+  padding-block: var(--s-2);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 500;
+  text-wrap: pretty;
+  color: var(--ink);
+  transition: color 200ms var(--ease, ease);
+}
+.journey__achievements summary::-webkit-details-marker {
+  display: none;
+}
+/* the plus turns to a cross when open */
+.journey__achievements summary::after {
+  content: "+";
+  flex: none;
+  font: 400 18px / 1 var(--font-mono);
+  color: var(--accent);
+  transition: rotate 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.journey__achievements details[open] > summary::after {
+  rotate: 45deg;
+}
+.journey__achievements summary:hover {
+  color: var(--accent);
+}
+.journey__achievements summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.journey__achievements details > p {
+  margin: 0;
+  padding-bottom: var(--s-3);
+  max-width: 52ch;
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+/* the sentence opens with a short ease where the browser can size to auto; elsewhere it just shows */
+@supports (interpolate-size: allow-keywords) {
+  .journey__achievements details {
+    interpolate-size: allow-keywords;
+  }
+  .journey__achievements details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 360ms cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 360ms allow-discrete;
+  }
+  .journey__achievements details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* the tech row: each tool's real mark and its name */
+.journey__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.journey__tech > li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 3px var(--s-3) 3px 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--t-label);
+  color: var(--ink);
+}
+.journey__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in oklab, #ffffff 92%, var(--bg));
+}
+.journey__mark > img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+.journey__mark > img.is-wide {
+  width: 80%;
+  height: 40%;
+}
+.journey__initials {
+  font: 600 8px / 1 var(--font-mono);
+  color: #16181a;
+}
+
+/* ---- the visual: the years set large, the marks, the ruler ---------------- */
+/* [data-moment] outweighs the kit's .mo-pc__visual--lit (centred), whatever order the sheets load in */
+.journey[data-moment] .mo-pc__visual.journey__visual {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: var(--s-6);
+  border-radius: var(--r-md);
+}
+.journey__big {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 0.25em;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(40px, 5.4vw, 88px);
+  line-height: 1;
+  letter-spacing: var(--display-tracking-xl);
+  color: var(--ink);
+}
+.journey__big-arrow {
+  color: var(--accent);
+}
+.journey__school {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+.journey__marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+.journey__marks > .journey__mark {
+  width: 44px;
+  height: 44px;
+  box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.6);
+}
+.journey__marks .journey__initials {
+  font-size: 11px;
+}
+
+.journey__ruler {
+  display: grid;
+  gap: var(--s-2);
+}
+.journey__lane {
+  display: grid;
+  grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-3);
+}
+.journey__lane-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--t-label);
+  color: var(--muted);
+}
+.journey__lane[data-active] .journey__lane-label {
+  color: var(--ink);
+}
+.journey__track {
+  position: relative;
+  display: block;
+  height: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.journey__lane--axis .journey__track {
+  height: 18px;
+}
+.journey__tick {
+  position: absolute;
+  left: var(--x);
+  bottom: 4px;
+  translate: -50% 0;
+  font: 500 11px / 1 var(--font-mono);
+  color: var(--muted);
+}
+.journey__tick:first-child {
+  translate: 0 0;
+}
+.journey__bar {
+  position: absolute;
+  left: var(--x);
+  width: var(--w);
+  inset-block: 6px;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+.journey__bar[data-open] {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  mask: linear-gradient(to right, #000 70%, transparent);
+}
+.journey__bar[data-active] {
+  background: var(--accent);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+/* ---- live: slides ---------------------------------------------------------
+   Every chapter sits in the same cell; the one in hand rises in, the others step out of view. They
+   stay in the accessibility tree (opacity, not display or visibility); a keyboard user who tabs into
+   a hidden chapter's achievement brings that chapter forward (:focus-within). */
+/* the stage starts at the section's usual top (--padt), like every other section, not centred:
+   one gap between sections (taste-skill section-gaps) */
+main section.journey[data-moment][id].is-live > .mo-pc__grid {
+  align-content: start;
+  padding-top: var(--padt);
+}
+.journey[data-moment].is-live .mo-pc__steps {
+  display: grid;
+}
+.journey[data-moment].is-live .mo-pc__step {
+  grid-area: 1 / 1;
+  align-content: start;
+  gap: var(--s-4);
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  translate: 0 24px;
+  pointer-events: none;
+  transition:
+    opacity 360ms ease,
+    translate 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.journey[data-moment].is-live .mo-pc__step.is-on,
+.journey[data-moment].is-live .mo-pc__step:focus-within {
+  opacity: 1;
+  translate: none;
+  pointer-events: auto;
+}
+.journey[data-moment].is-live .mo-pc__steps:has(.mo-pc__step:focus-within) .mo-pc__step.is-on:not(:focus-within) {
+  opacity: 0;
+}
+/* the kit folds a closed chapter's lines; on a slide the chapter shows whole */
+.journey[data-moment].is-live .mo-pc__step p {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.journey[data-moment].is-live .mo-pc__step h3 {
+  color: var(--ink);
+}
+.journey[data-moment].is-live .mo-pc__visuals {
+  border-radius: var(--r-md);
+}
+/* live: the chapter's lit bar grows from its start as its visual comes up (inside the moment only;
+   at rest and under reduced motion the bar stands whole) */
+.journey[data-moment].is-live .mo-pc__visual .journey__bar[data-active] {
+  scale: 0 1;
+  transform-origin: left center;
+  transition: scale 600ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+.journey[data-moment].is-live .mo-pc__visual.is-on .journey__bar[data-active] {
+  scale: 1 1;
+}
+
+/* ---- at rest: rows from 640px, stacked on a phone ------------------------- */
+@media (min-width: 640px) {
+  .journey[data-moment]:not(.is-live) .mo-pc__step .journey__body {
+    grid-column: 1;
+  }
+  .journey[data-moment]:not(.is-live) .mo-pc__step .mo-pc__visual {
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+}
+.journey[data-moment]:not(.is-live) .mo-pc__visual.journey__visual {
+  aspect-ratio: auto;
+  gap: var(--s-5);
+}
+.journey[data-moment]:not(.is-live) .journey__big {
+  font-size: clamp(32px, 4vw, 56px);
+}
+/* at rest the tech row with its marks stands right above: the visual keeps the years and the ruler */
+.journey[data-moment]:not(.is-live) .journey__marks {
+  display: none;
+}
+/* ---- a phone: a vertical timeline (owner's choice) -------------------------------
+   One glowing line down the chapters, a dot on it for each; each chapter a row: a small square
+   picture at the left, its period, title and one line at the right, the longer text folded under
+   "Xem thêm". A running chapter's dot pulses three times, then rests (no loop to pause).
+   From 640px the chapter shows whole and these parts are not drawn. */
+.journey[data-moment] .mo-pc__step :is(.journey__summary, .journey__photo, .journey__more) {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  /* not on a phone: the tech row (the skills section lists the stack), the ruler visual, the count */
+  .journey[data-moment]:not(.is-live) .mo-pc__step .journey__visual,
+  .journey .journey__tech,
+  .journey .journey__count {
+    display: none;
+  }
+
+  /* the line: one gradient down the list, from the logo's cyan to its blue, fading at the foot */
+  .journey[data-moment]:not(.is-live) .mo-pc__steps {
+    position: relative;
+    gap: var(--s-6);
+    padding-left: var(--s-5);
+  }
+  .journey[data-moment]:not(.is-live) .mo-pc__steps::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    bottom: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, var(--grad-from), var(--grad-to) 70%, transparent);
+    box-shadow: 0 0 12px color-mix(in oklab, var(--grad-from) 45%, transparent);
+  }
+
+  /* a chapter: the picture at the left of its first rows, the words at the right */
+  .journey[data-moment]:not(.is-live) .mo-pc__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    column-gap: var(--s-4);
+    row-gap: var(--s-1);
+    align-items: start;
+    padding: 0;
+    border: 0;
+  }
+  /* its dot on the line */
+  .journey[data-moment]:not(.is-live) .mo-pc__step::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--s-5) + 4px - 4px);
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--grad-from);
+  }
+  .journey[data-moment]:not(.is-live) .mo-pc__step[data-running]::before {
+    background: var(--grad-from);
+    animation: journey-pulse 1.6s ease-out 3;
+  }
+
+  .journey[data-moment] .mo-pc__step > .journey__photo {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .journey[data-moment] .mo-pc__step > h3 {
+    grid-column: 2;
+    gap: 2px;
+  }
+  .journey[data-moment] .mo-pc__step .journey__title {
+    font-size: 22px;
+  }
+  .journey[data-moment] .mo-pc__step > .journey__summary {
+    grid-column: 2;
+    display: block;
+    margin: 0;
+    font-size: var(--t-small);
+    line-height: 1.45;
+    color: color-mix(in oklab, var(--ink) 85%, var(--bg));
+  }
+  /* the folded text and the button under the words, the full width of the row */
+  .journey[data-moment] .mo-pc__step > p:not(.journey__summary),
+  .journey[data-moment] .mo-pc__step > .journey__body {
+    grid-column: 1 / -1;
+    margin-top: var(--s-2);
+  }
+  .journey[data-moment] .mo-pc__step > .journey__more {
+    grid-column: 2;
+  }
+  .journey .journey__body {
+    gap: 0;
+  }
+
+  .journey__photo > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 0 0;
+  }
+  /* a logo (METADAP) sits whole inside the square, on a light tile so its colours read */
+  .journey[data-moment] .mo-pc__step > .journey__photo[data-fit="contain"] {
+    background: color-mix(in oklab, #ffffff 94%, var(--bg));
+  }
+  .journey__photo[data-fit="contain"] > img {
+    object-fit: contain;
+    object-position: 50% 50%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  /* the school years: the school's icon on the logo's sweep, no picture of their own yet */
+  .journey__photo-icon {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(120% 90% at 20% 10%, color-mix(in oklab, var(--grad-from) 40%, transparent), transparent 65%),
+      radial-gradient(100% 80% at 90% 100%, color-mix(in oklab, var(--grad-to) 35%, transparent), transparent 65%),
+      var(--surface);
+  }
+  .journey__photo-icon > svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* folded (only with script, which draws the button): the place line, the paragraph, the achievements */
+  html.mo-js .journey .journey__step:not([data-more]) > p:not(.journey__summary),
+  html.mo-js .journey .journey__step:not([data-more]) > .journey__body {
+    display: none;
+  }
+  html.mo-js .journey[data-moment] .mo-pc__step .journey__more {
+    display: inline-flex;
+  }
+  .journey__more {
+    align-items: center;
+    justify-self: start;
+    gap: var(--s-2);
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: 500 var(--t-small) / 1 var(--font-text);
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .journey__more:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .journey__more-icon {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: rotate 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .journey__more[aria-expanded="true"] .journey__more-icon {
+    rotate: 180deg;
+  }
+}
+@keyframes journey-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--grad-from) 60%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey .mo-pc__step::before {
+    animation: none !important;
+  }
+  .journey .mo-pc__step,
+  .journey__achievements summary::after,
+  .journey__achievements details::details-content {
+    transition: none !important;
+  }
+}

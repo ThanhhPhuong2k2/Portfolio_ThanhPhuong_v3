@@ -1,0 +1,60 @@
+/*
+  Page tokens: the :root block printed by
+    start.mjs css --page software --palette cool-grey-cobalt --type mona --radius soft
+  kept as printed, plus the evening (dark) grade. Linked after the kit's layout.css
+  (layout.css resets --ly-scale). Fonts come from next/font variables on <html>.
+*/
+:root {
+  --p-bg: #eef0f3; --p-surface: #e2e5ea; --p-ink: #0b0c0e; --p-muted: #5d6470;
+  --p-accent: #1f2de6; --p-accent-ink: #ffffff; --p-action: #1f2de6; --p-action-ink: #ffffff;
+  --p-inv-bg: #0b0c0e; --p-inv-surface: #17181a; --p-inv-ink: #eef0f3; --p-inv-muted: #8e8f92;
+  --p-inv-accent: #eef0f3; --p-inv-accent-ink: #0b0c0e; --p-inv-action: #eef0f3; --p-inv-action-ink: #0b0c0e;
+  /* display: Bricolage Grotesque for the large type (owner's choice, Phase 4); text stays Mona Sans */
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", var(--font-mona), system-ui, sans-serif;
+  --font-text: var(--font-mona), "Mona Sans", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --display-stretch: 104%;
+  --ly-scale: 0.96;
+  color-scheme: light;
+}
+
+/*
+  Evening grade (tech only, system.md): chosen once on load from prefers-color-scheme, or by a
+  click on the nav toggle (html[data-theme]). Never changed by scrolling.
+  Owner's ask (Phase 4): a more "modern tech" dark. The ground is the deepest shade of the cobalt
+  hue (backgrounds.md: --g-dark is near-black or the deepest shade of the brand hue, never violet):
+    bg      #060912  OKLCH L .141 C .021 h 267 (the light accent's hue, 267.2)
+    surface #0d1322  h 267
+    ink     #e8edf5  16.9:1 on bg     muted #8b96a8  6.7:1 on bg, 6.2:1 on surface
+    action  #38c6ff  7.9:1 on bg (h 266.7), its ink #060912 on it 7.9:1
+*/
+:root[data-theme="dark"] {
+  --p-bg: #060912; --p-surface: #0d1322; --p-ink: #e8edf5; --p-muted: #8b96a8;
+  --p-accent: #38c6ff; --p-accent-ink: #060912; --p-action: #38c6ff; --p-action-ink: #060912;
+  --p-inv-bg: #eef0f3; --p-inv-surface: #e2e5ea; --p-inv-ink: #0b0c0e; --p-inv-muted: #5d6470;
+  --p-inv-accent: #0b0c0e; --p-inv-accent-ink: #eef0f3; --p-inv-action: #0b0c0e; --p-inv-action-ink: #eef0f3;
+  /* the sky lit ground at evening, h 263 (ink 15.4:1, muted 7.1:1, the cyan action well above 7:1 on it), a step
+     lighter than the page (1.1:1), so the footer slab and the hero's frame read as lit panels */
+  --ground-bg: #0e1626; --ground-surface: #142036; --ground-ink: #e8edf5; --ground-muted: #93a3ba; --ground-accent: #38c6ff;
+  /* the logo's sweep for the buttons (owner's ask): electric cyan to electric blue. The dark label
+     #060912 reads at about 10:1 on the cyan end and 5.6:1 on the blue end (both over 4.5:1). */
+  --grad-from: #38c6ff;
+  --grad-to: #3d8bff;
+  --brand-gradient: linear-gradient(120deg, var(--grad-from) 0%, var(--grad-to) 100%);
+  color-scheme: dark;
+}
+/*
+  A wider page (owner's ask, Phase 4): from 1024 the side margin is 64px (the checker's narrowest at 1440)
+  instead of 80, and the .wrap may reach 1440px. At 1440 the lines sit at x 64 and 1376 (1312 wide).
+*/
+@media (min-width: 1024px) {
+  :root { --gut: 64px; --container: 1440px; }
+}
+
+/* html[data-ground="sky"] in system.css sets the light sky tokens with more specificity; restate them at evening */
+:root[data-theme="dark"][data-ground="sky"] {
+  --ground-bg: #0e1626; --ground-surface: #142036; --ground-ink: #e8edf5; --ground-muted: #93a3ba; --ground-accent: #38c6ff;
+}

@@ -1,0 +1,237 @@
+/*
+  Skills page CSS (owner's choice, Phase 5): the split and the orbit. The orbit sizes itself to its
+  column with container units (cqi), so the same rings hold at 1440 and at 342 on a phone.
+*/
+.skills__count {
+  display: block;
+}
+/* the outer marks and their hidden names may turn past the column: never past the page (off-viewport) */
+.skills {
+  overflow-x: clip;
+}
+
+/* ------------------------------------------------------------ the split: words left, orbit right */
+.skills__split {
+  align-items: start;
+}
+.skills__text {
+  align-self: start;
+}
+/* square, as large as the column and the screen allow */
+.skills__orbit {
+  justify-self: start;
+  width: min(100%, calc(100svh - var(--padt) - var(--padb)));
+}
+
+/* the legend: the three rings, named */
+.skills__legend {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.skills__legend > li {
+  display: grid;
+  grid-template-columns: 14px auto;
+  column-gap: var(--s-3);
+  row-gap: 2px;
+  align-items: baseline;
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+.skills__ring-dot {
+  grid-row: 1 / span 2;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  align-self: center;
+  border: 2px solid var(--ring-c);
+}
+.skills__ring-dot[data-ring="0"] { --ring-c: var(--accent); background: var(--accent); }
+.skills__ring-dot[data-ring="1"] { --ring-c: color-mix(in oklab, var(--accent) 70%, var(--ink)); }
+.skills__ring-dot[data-ring="2"] { --ring-c: var(--muted); }
+.skills__ring-name {
+  font: 500 var(--t-label) / 1.2 var(--font-mono);
+  color: var(--muted);
+}
+.skills__ring-groups {
+  grid-column: 2;
+  font: var(--display-weight) var(--t-card) / 1.3 var(--font-display);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------ the orbit */
+.orbit {
+  --tile: clamp(34px, 8.4cqi, 50px);
+  position: relative;
+  aspect-ratio: 1;
+  container-type: inline-size;
+  /* a faint cobalt halo the rings turn in: depth behind them, and the visual starts at the column's top */
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 16%, transparent) 0%, color-mix(in oklab, var(--accent) 6%, transparent) 45%, transparent 70%);
+}
+/* the core: a lit disc with the word */
+.orbit__core {
+  position: absolute;
+  inset: 37%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  /* a calm, nearly flat light disc (the word on it reads at every point); the glow lives outside it */
+  background: radial-gradient(circle at 40% 35%, color-mix(in oklab, var(--accent) 55%, white), color-mix(in oklab, var(--accent) 80%, white));
+  box-shadow: 0 0 60px -6px color-mix(in oklab, var(--accent) 55%, transparent), inset 0 0 0 1px color-mix(in oklab, white 20%, transparent);
+}
+.orbit__core > span {
+  font: var(--display-weight) clamp(16px, 5cqi, 30px) / 1 var(--font-display);
+  letter-spacing: -0.02em;
+  /* dark on the lit disc: the light at its top left would not hold white text at 4.5:1 */
+  color: #060912;
+}
+
+/* the rings: a faint dashed path, the marks on it, turning */
+/* a ring is a 0x0 point at the orbit's centre that turns: its marks and its path hang off it, so a
+   turned ring never grows a box past the section (a turned square's box would, by its diagonal) */
+.orbit__ring {
+  --r: 25cqi;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: orbit-spin var(--spin, 60s) linear infinite;
+}
+.orbit__ring::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in oklab, var(--ink) 16%, transparent);
+}
+.orbit__ring[data-ring="0"] { --r: 24cqi; --spin: 60s; }
+.orbit__ring[data-ring="1"] { --r: 35cqi; --spin: 90s; animation-direction: reverse; }
+.orbit__ring[data-ring="2"] { --r: 45.5cqi; --spin: 120s; }
+
+/* a mark: placed on its ring by its angle, then turned back so it stays upright while the ring turns */
+.orbit__item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--tile);
+  height: var(--tile);
+  margin: calc(var(--tile) / -2) 0 0 calc(var(--tile) / -2);
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)));
+}
+.orbit__tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: color-mix(in oklab, #ffffff 92%, var(--bg));
+  /* a hairline edge, no blurred drop shadow: ~31 turning tiles each with a 20px blur cost every frame
+     (performance audit) */
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--ink) 12%, transparent);
+  animation: orbit-spin var(--spin, 60s) linear infinite;
+  animation-direction: reverse;
+  transition: scale 200ms var(--ease, ease), box-shadow 200ms var(--ease, ease);
+}
+.orbit__ring[data-ring="1"] .orbit__tile { animation-direction: normal; }
+.orbit__logo {
+  width: 52%;
+  height: 52%;
+  object-fit: contain;
+}
+.orbit__logo.is-wide {
+  width: 74%;
+  height: 40%;
+}
+.orbit__initials {
+  font: 500 clamp(10px, 2.4cqi, 13px) / 1 var(--font-mono);
+  color: #16181a;
+}
+/* the name: read out always (.sr-only in the markup); drawn under the mark only while hovered, so it
+   takes no room and hides nothing the rest of the time */
+.orbit__tile::after {
+  content: attr(data-name);
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font: 500 var(--t-label) / 1 var(--font-text);
+  color: var(--ink);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes orbit-spin {
+  to { rotate: 360deg; }
+}
+/* the pointer on the orbit holds every ring; the mark under it grows a little and names itself.
+   Off screen (PauseWhenHidden sets data-idle) the orbit rests too (performance audit). */
+.skills__orbit:hover .orbit__ring,
+.skills__orbit:hover .orbit__tile,
+.skills[data-idle] .orbit__ring,
+.skills[data-idle] .orbit__tile {
+  animation-play-state: paused;
+}
+@media (hover: hover) and (pointer: fine) {
+  .orbit__item:hover {
+    z-index: 3;
+  }
+  .orbit__item:hover .orbit__tile {
+    scale: 1.12;
+    box-shadow: 0 0 0 2px var(--accent), 0 10px 24px -8px rgb(0 0 0 / 0.7);
+  }
+  .orbit__item:hover .orbit__tile::after {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit__ring,
+  .orbit__tile {
+    animation: none;
+  }
+}
+/* a phone: only the outer ring turns; the two inner rings rest (performance audit: ~34 turning
+   layers at a phone's 3x density were the page's last source of scroll jank) */
+@media (max-width: 639px) {
+  .orbit__ring:not([data-ring="2"]),
+  .orbit__ring:not([data-ring="2"]) .orbit__tile {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------ tablet and phone: one column */
+@media (max-width: 1023px) {
+  .skills__split > .skills__text,
+  .skills__split > .skills__orbit {
+    grid-column: 1 / -1;
+  }
+  .skills__orbit {
+    justify-self: center;
+    width: min(100%, 560px);
+    margin-top: var(--s-6);
+  }
+}
+@media (max-width: 639px) {
+  .skills__legend {
+    gap: var(--s-3);
+  }
+  .skills__legend > li {
+    padding-bottom: var(--s-3);
+  }
+}

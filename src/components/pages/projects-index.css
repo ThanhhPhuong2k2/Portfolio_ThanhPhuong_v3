@@ -1,0 +1,243 @@
+/*
+  The page of all projects (owner's redesign): the h1 over the home hero's floating logos (the page's
+  one effect, a desktop only), then one even grid, two cards a row. A card is its screen; on hover
+  the screen dims and blurs and a band rises from the foot with the name, what it is and its tools
+  (always shown on a phone); the logo's sweep lights the card's edge.
+*/
+/* a page of its own, as tall as its cards (it is not a one-screen section of the landing page);
+   main > section outranks the kit's one- or two-screen section box */
+main > section.projects-index {
+  height: auto;
+  min-height: 100svh;
+}
+.projects-index__back {
+  margin: 0 0 var(--s-5);
+}
+/* the head's words above the logo field */
+.projects-index > .wrap {
+  position: relative;
+  z-index: 1;
+}
+/* the logo field behind the head: the band under the nav, fading out at its foot and towards the
+   h1 at the left; a desktop only */
+.pi-logos {
+  position: absolute;
+  top: var(--nav);
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 420px;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 55%, transparent),
+    linear-gradient(to right, transparent 30%, #000 60%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 55%, transparent),
+    linear-gradient(to right, transparent 30%, #000 60%);
+  mask-composite: intersect;
+}
+@media (max-width: 1023px) {
+  .pi-logos {
+    display: none;
+  }
+}
+/* ---- the list: one even grid, the four the owner leads with first ---------------------------------- */
+.pi-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* from 640px: two cards a row, all the same size (owner's ask: an even grid) */
+@media (min-width: 640px) {
+  .pi-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .pi-list {
+    gap: var(--s-6);
+  }
+}
+
+/* ---- a card: the screen fills it; on hover the screen dims and blurs and a band rises from the foot
+   with the name and what it is (always shown where there is no hover: a phone, a tablet) ---------- */
+.pi-card > article {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.pi-card__img {
+  object-fit: cover;
+  object-position: 50% 0;
+  transition:
+    scale 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 400ms ease;
+}
+/* the band: the page's dark rising from the foot under the words (their contrast holds over any screen) */
+.pi-card__band {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  display: grid;
+  gap: var(--s-1);
+  padding: var(--s-8) var(--s-5) var(--s-5);
+  /* dark enough behind a two-line name (4.5:1 over a white screenshot), fading out above it */
+  background: linear-gradient(
+    to top,
+    rgb(6 9 18 / 0.95) 0%,
+    rgb(6 9 18 / 0.9) 55%,
+    rgb(6 9 18 / 0.6) 80%,
+    transparent
+  );
+  transition:
+    opacity 360ms ease,
+    translate 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pi-card__title {
+  margin: 0;
+  font: 500 18px / 1.3 var(--font-text);
+  letter-spacing: -0.01em;
+  color: #e8edf5;
+}
+/* one size for every card's name below 1024px (one heading scale); the lead's larger on a desktop */
+@media (max-width: 1023px) {
+  .pi-card__title {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .pi-card__title {
+    font: var(--display-weight) 24px / 1.15 var(--font-display);
+    letter-spacing: var(--display-tracking);
+  }
+}
+/* a full tap target (44px) for the name itself; its ::after covers the card too */
+.pi-card__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+}
+/* the whole card is the link */
+.pi-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+.pi-card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.pi-card__sub {
+  margin: 0;
+  max-width: 48ch;
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: #c4ccd8;
+}
+/* the project's tools in the band: their real marks on light tiles, "+N" for the rest */
+.pi-card__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pi-mark,
+.pi-card__more {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.pi-mark {
+  background: color-mix(in oklab, #ffffff 92%, var(--bg));
+}
+.pi-mark > img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+.pi-mark__initials {
+  font: 600 9px / 1 var(--font-mono);
+  color: #16181a;
+}
+.pi-card__more {
+  border: 1px solid rgb(232 237 245 / 0.3);
+  font: 500 var(--t-label) / 1 var(--font-mono);
+  color: #c4ccd8;
+}
+/* the logo's sweep as the card's edge when it is hovered or focused: a ring drawn by ::before */
+.pi-card > article::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--brand-gradient);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.pi-card > article:has(.pi-card__link:focus-visible)::before {
+  opacity: 1;
+}
+
+/* a desktop with a pointer that hovers: the band waits below, the screen shows whole; hover or focus
+   brings it up. Narrower screens (and touch) always show the band. */
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .pi-card__band {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  .pi-card > article:is(:hover, :focus-within) .pi-card__band {
+    opacity: 1;
+    translate: none;
+  }
+  /* the keyboard sees the name at once, its ring with it (no slide to wait for) */
+  .pi-card > article:focus-within .pi-card__band {
+    transition: none;
+  }
+  .pi-card > article:is(:hover, :focus-within) .pi-card__img {
+    scale: 1.04;
+    filter: brightness(0.6) blur(3px);
+  }
+  .pi-card > article:hover::before {
+    opacity: 1;
+  }
+}
+
+/* a phone: one card a row */
+@media (max-width: 639px) {
+  .pi-card__band {
+    padding: var(--s-7) var(--s-4) var(--s-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pi-card__img,
+  .pi-card__band,
+  .pi-card > article::before {
+    transition: none;
+  }
+}

@@ -1,0 +1,249 @@
+consistency  D:\WorkSpaces\project\phuong-portfolio-v3\out\projects\index.html
+--quick: not checked: scroll-linked (stepping), scroll-reveal (the reveal walk; IntersectionObserver reveals are read), hover-spill, hidden-visual, loop-pause, forms, reduced-motion, the dead-IntersectionObserver walk (hidden content is read with scripts off and under reduced motion), hover-move. Still told: IntersectionObserver reveals (scroll-reveal), held sections (pinned) and CSS scroll timelines (scroll-linked); faults inside held or [data-big-scene] sections are WARNs
+
+1440x900  3 screens  12 FAIL  23 WARN
+  FAIL cta             main#top > section.section.projects-index
+       the hero has no button (the nav's does not count)  [1440-01-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL copy-headline   h1#projects-index-h  "Tất cả dự án. 12 dự án, từ 2022 đến nay."
+       "Tất cả dự án. 12 dự án, từ 2022 đến nay." does not name what is sold (fullstack developer portfolio, fullstack, developer, portfolio, from flags)  [1440-02-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  FAIL copy-headings   li.span-3:nth-of-type(1) > a.tile > div.tile__head > h2  "TokenMall"
+       "TokenMall" names no product, part, place or section (9 headings like it; at most one brand line per page) (and 8 more like it: "Ôn TOEIC", "LANI", "Landing Page MetaDAP", "Verify Document", ...)  [1440-03-copy-headings.jpg]
+       fix: name the thing in every heading: the product, a part, the place or a section noun
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/__next.!KHZpKQ.__PAGE__.txt?_rsc=wroyKIw7wLxG0psN did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/tokenmall/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/thuc-pham-quang-da/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/risegate-asset-tokenization-platform/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/on-toeic/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/lani/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/landing-page-metadap/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/verify-document/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/vide/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/metaos/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/check-in-event/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/bigbee/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/project/admin-system-collection/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=tPowxoh6VmCpJE8k did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file http://127.0.0.1:5200/en/projects/__next.!KGVuKQ.en.projects.__PAGE__.txt?_rsc=TQp0YLKyN8AkBC56 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN nav             header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo  "P Thanh Phương"
+       the nav is lopsided: its first item starts 7px inside the content's edge (64px), while its last ends on the other edge  [1440-04-nav.jpg]
+       fix: start the nav's first item and end its last on the content's two edges
+  WARN copy-headline   h1#projects-index-h  "Tất cả dự án. 12 dự án, từ 2022 đến nay."
+       the h1 has 11 words (2 to 8 read at a glance)  [1440-05-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  WARN copy-buttons    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       "Tải CV" does not start with a verb (book, buy, try, start, get, see...)  [1440-06-copy-buttons.jpg]
+       fix: label buttons with a verb and what the visitor gets ("Book a room", "Start free trial")
+  WARN section-gaps    main#top > section.section.projects-index / footer#contact
+       uneven space at the edge of a band: 74px outside its edge, 117px inside it (the space on either side of a change of ground reads as one gap only when the two match)  [1440-10-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN photo-set       li.span-3:nth-of-type(4) > a.tile > div.tile__media > img  "og-image.png"
+       8 photographs in more than one look: lightness from 0.23 to 0.91; saturation from 0.16 to 0.84; the odd one out is og-image.png  [1440-07-photo-set.jpg]
+       fix: grade the photographs to one look (light, colour, warmth), or replace the odd one out
+  WARN label-centre    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       its label sits 18px off-centre (25px of room at the left, 43px at the right)  [1440-08-label-centre.jpg]
+       fix: centre the label in its button, or fill the empty side with an icon
+  WARN copy-length     main#top > section.section.projects-index  "Tất cả dự án. 12 dự án, từ 2022 đến nay."
+       1 section over 90 words a screen outside the UI mocks ("Tất cả dự án. 12 dự án, " 102); 102 words a screen across the page (174 words in 1.7 screens): a tech page says it in about 80 or fewer  [1440-09-copy-length.jpg]
+       fix: cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences
+  WARN moment-none     (the page)
+       a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)
+       fix: deal one (moments.mjs pick --page software) and mount it in its own section
+  WARN skip-link       header.nav.nav--centre > div.wrap.nav__bar > a.skip-link:nth-of-type(1)  "Bỏ qua đến nội dung"
+       the first Tab stop is "Bỏ qua đến nội dung", not a skip link: a keyboard user tabs through the whole nav on every visit
+       fix: add the starter's skip link as the header's first child: <a class="skip-link" href="#top">Skip to content</a>
+  FAIL hero-screen     main#top > section.section.projects-index  "Về trang chủTất cả dự án. 12 dự án, từ 2"
+       the hero ends at 1510px on a 900px screen, 610px below the fold: it ends at the fold, 1px either way (SR-1)  [1440-rhythm-01-hero-screen.jpg]
+       fix: make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter
+  FAIL section-height  footer#contact  "Hãy kết nối.thanhphuong212002@gmail.comT"
+       the section starts at 1510px, 290px above the screen grid (2 x 900px): sections start on whole screens (SR-2)  [1440-rhythm-02-section-height.jpg]
+       fix: make every section above it exactly one or two screens tall, so this one starts on a whole screen
+  FAIL one-section     h2#close-h  "Hãy kết nối."
+       the screen at scroll 900px (stride 1) shows 290px of section 2 and the heading of section 2 whole and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)  [1440-rhythm-03-one-section.jpg]
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL one-heading     li.span-3:nth-of-type(1) > a.tile > div.tile__head > h2  "TokenMall"
+       the hero holds an h2 (12): its heading is the h1, and an h2 opens the next section (SR-5)  [1440-rhythm-04-one-heading.jpg]
+       fix: give each section one h2, first in its .wrap, and the hero only its h1
+  FAIL one-heading     h2#close-h  "Hãy kết nối."
+       headings of two sections show whole on one screen at 9 of 31 scroll positions (29%; at scroll 800, 850, 900, 950px), here with "LANI": at most 3% on a desktop (SR-5)
+       fix: make the sections one screen tall so their headings sit a screen apart and two never share one
+  FAIL container-edges main#top > section.section.projects-index > div.wrap  "Về trang chủTất cả dự án. 12 dự án, từ 2"
+       the hero's .wrap holds 3 children, 0 of them .hero-text: one .hero-text and at most one strip (SR-6)  [1440-rhythm-05-container-edges.jpg]
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges li.span-3:nth-of-type(4) > a.tile > div.tile__head > h2  "Ôn TOEIC"
+       the h2 starts 1002px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges li.span-3:nth-of-type(8) > a.tile > div.tile__head > h2  "VIDE"
+       the h2 starts 1002px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges li.span-3:nth-of-type(12) > a.tile > div.tile__head > h2  "Admin System Collection"
+       the h2 starts 1002px right of the container's left: every h1 and h2 starts on it, 2px either way (and 6 more like it: "Risegate – Asset Tokeniz", "Verify Document", "BigBee") (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+
+390x844  9 screens  23 FAIL  4 WARN
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(2) > ul > li:nth-of-type(1) > a  "TokenMall"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-17-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(2) > ul > li:nth-of-type(2) > a  "Thực Phẩm Quảng Đà"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-18-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(2) > ul > li:nth-of-type(3) > a  "Risegate – Asset Tokenization Platform"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-19-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(2) > ul > li:nth-of-type(4) > a  "Ôn TOEIC"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-20-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(3) > ul > li:nth-of-type(1) > a  "Frontend"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-21-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(3) > ul > li:nth-of-type(2) > a  "Backend"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-22-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(3) > ul > li:nth-of-type(3) > a  "Database"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-23-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(3) > ul > li:nth-of-type(4) > a  "Web3"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-24-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(4) > ul > li:nth-of-type(1) > a  "Ôn TOEIC (Freelance Project)"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-25-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(4) > ul > li:nth-of-type(2) > a  "METADAP"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-26-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL scroll-reveal   div.span-2.footer__col:nth-of-type(4) > ul > li:nth-of-type(3) > a  "Đại học Duy Tân"
+       starts "color" (0.1 s) the moment it is scrolled into view (an IntersectionObserver)  [390-27-scroll-reveal.jpg]
+       fix: show it at rest: no fade, rise or unmask when it is scrolled into view
+  FAIL cta             main#top > section.section.projects-index
+       the hero has no button (the nav's does not count)  [390-01-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL photo-upscale   li.span-3:nth-of-type(1) > a.tile > div.tile__media > img  "img: TokenMall: Nền tảng Thương mại điện"
+       byDMwTQuzggWNz6lB6z5LE5KpEA.png: 195x141 shown at 342x214, blown up 1.75x  [390-02-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(2) > a.tile > div.tile__media > img  "img: Thực Phẩm Quảng Đà: Dự án Freelance"
+       Screenshot_2026-07-11_113823_uv86tw.png: 195x92 shown at 342x214, blown up 2.32x  [390-04-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(3) > a.tile > div.tile__media > img  "img: Risegate – Asset Tokenization Platf"
+       oHCMlUL1ZrSH7Hr9kgKZRyab3E.png: 195x141 shown at 342x214, blown up 1.75x  [390-05-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(5) > a.tile > div.tile__media > img  "img: LANI: Nền tảng Thương mại điện tử &"
+       Screenshot_2026-09-29_002522_ysyilo.png: 195x89 shown at 342x214, blown up 2.40x  [390-06-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(6) > a.tile > div.tile__media > img  "img: Landing Page MetaDAP: Trang giới th"
+       Yyg3RYi3N3nLRtOoLhHzPEa0ryA.png: 195x141 shown at 342x214, blown up 1.75x  [390-07-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(7) > a.tile > div.tile__media > img  "img: Verify Document: Nền tảng xác thực "
+       oQYoVQDeWpZRiRLNZegGTlOSXk.png: 195x141 shown at 342x214, blown up 1.75x  [390-10-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(8) > a.tile > div.tile__media > img  "img: VIDE: Nền tảng phát triển kinh tế s"
+       TzkRokvts9yf9XUkdO8z4zXCFys.png: 195x141 shown at 342x214, blown up 1.75x  [390-11-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(9) > a.tile > div.tile__media > img  "img: MetaOS: Trải nghiệm sản phẩm số"
+       d3qQCuIz37NLapX1u7f0K2v003g.png: 195x141 shown at 342x214, blown up 1.75x  [390-12-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(10) > a.tile > div.tile__media > img  "img: Check-in Event: Hệ thống quản lý sự"
+       idX3SWLbFoGIAfCApb1vREVSPk.png: 195x141 shown at 342x214, blown up 1.75x  [390-13-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(11) > a.tile > div.tile__media > img  "img: BigBee: Thương hiệu Truyền thông Sá"
+       ei8RMX7xPpQUkdcfE8Rk9hHvQ.png: 195x141 shown at 342x214, blown up 1.75x  [390-14-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   li.span-3:nth-of-type(12) > a.tile > div.tile__media > img  "img: Admin System Collection: Hệ thống B"
+       DLJUgRIaXBJC4RYi0svCJKjSI.png: 195x141 shown at 342x214, blown up 1.75x  [390-15-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  WARN section-gaps    main#top > section.section.projects-index / footer#contact
+       uneven space at the edge of a band: 50px outside its edge, 94px inside it (the space on either side of a change of ground reads as one gap only when the two match)  [390-16-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN photo-set       li.span-3:nth-of-type(5) > a.tile > div.tile__media > img  "Screenshot_2026-09-29_002522_ysyilo.png"
+       10 photographs in more than one look: lightness from 0.32 to 0.89; saturation from 0.17 to 0.77; warm and cool photographs mixed (b* -9 to +26); the odd one out is Screenshot_2026-09-29_002522_ysyilo.png  [390-08-photo-set.jpg]
+       fix: grade the photographs to one look (light, colour, warmth), or replace the odd one out
+  WARN label-centre    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       its label sits 18px off-centre (13px of room at the left, 31px at the right)  [390-03-label-centre.jpg]
+       fix: centre the label in its button, or fill the empty side with an icon
+  WARN photo-repeat    li.span-3:nth-of-type(5) > a.tile > div.tile__media > img  "Screenshot_2026-07-11_113823_uv86tw.png"
+       the photograph Screenshot_2026-07-11_113823_uv86tw.png is shown 2 times on the page: a picture the visitor has already seen  [390-09-photo-repeat.jpg]
+       fix: show each photograph once: a different picture of what this section names, or none
+
+first screen at 1280, 1152, 1024, 896, 768  0 FAIL  0 WARN
+
+the page at 320x640, walked for what runs past the screen's edge  0 FAIL
+
+checks
+  WARN assets                 PASS shader-lint            PASS gl-fallback            
+  PASS empty-visual           PASS hero-fill              PASS flush                  
+  PASS placeholder            PASS sample-label           PASS caption                
+  PASS credit-wall            WARN nav                    PASS nav-covers             
+  PASS spill                  PASS off-viewport           PASS fold-card              
+  SKIP hover-spill            PASS overlap-text           PASS collide                
+  PASS tap-size               PASS row-gap                PASS cut-text               
+  PASS fold-cut               PASS marquee                SKIP scroll-linked          
+  FAIL scroll-reveal          PASS pinned                 SKIP loop-pause             
+  SKIP reduced-motion         PASS hidden-content         PASS webgl                  
+  PASS no-visual              PASS text-only              PASS card-visual            
+  SKIP hidden-visual          PASS card-family            PASS card-layout            
+  PASS nesting                PASS effect-repeat          PASS ui-fit                 
+  PASS ui-centre              PASS dark-ground            PASS button-styles          
+  PASS button-shape           PASS same-action            PASS button-picture         
+  FAIL cta                    PASS pricing-tiers          FAIL copy-headline          
+  PASS copy-fact              FAIL copy-headings          WARN copy-buttons           
+  PASS copy-actions           PASS heading-scale          PASS stagger                
+  PASS top-stagger            PASS off-grid               PASS col-edge               
+  PASS right-edge             PASS centre-axis            PASS tilt                   
+  PASS contrast               PASS text-contrast          PASS body-size              
+  PASS busy-ground            WARN section-gaps           PASS proximity              
+  PASS hole                   PASS links                  SKIP forms                  
+  FAIL photo-upscale          WARN photo-set              PASS photo-credit           
+  PASS nav-family             PASS nav-labels             PASS link-styles            
+  PASS heading-align          WARN label-centre           PASS fake-button            
+  PASS stranded-action        PASS orphan                 PASS unit-break             
+  PASS tab-wrap               PASS effects-fit            PASS fade-cut               
+  PASS photo-weight           WARN copy-length            PASS nav-current            
+  PASS progress-bar           WARN photo-repeat           PASS button-contrast        
+  PASS photo-print            PASS grounds                PASS split-align            
+  PASS fact-agree             PASS fold-action            PASS action-count           
+  PASS one-screen             SKIP hover                  SKIP hover-move             
+  PASS product-shown          PASS same-object            PASS font-load              
+  PASS visual-caption         PASS visual-empty           PASS effect-kind            
+  PASS hero-enter             WARN moment-none            PASS street-number          
+  PASS postcode               PASS coordinates            PASS company-number         
+  PASS phone-number           FAIL hero-screen            FAIL section-height         
+  PASS section-air            FAIL one-section            FAIL one-heading            
+  FAIL container-edges        PASS row-lines              PASS split-pair             
+  PASS motion-layer           PASS count-text             PASS loop-cycle             
+  PASS section-tile           PASS empty-area             PASS a11y-name              
+  PASS img-alt                PASS field-label            PASS heading-order          
+  PASS tabindex               PASS focus-ring             PASS focus-visible          
+  PASS focus-hidden           WARN skip-link              PASS menu-toggle            
+  PASS lang                   PASS page-meta              PASS share-meta             
+  PASS action-repeat          PASS map-link               PASS open-now               
+  PASS assumed                PASS run-on                 PASS form-fields            
+  PASS form-send              
+
+total  35 FAIL  27 WARN  (crops and report.json in D:\WorkSpaces\project\phuong-portfolio-v3\out\projects\.taste-skill\consistency)

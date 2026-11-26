@@ -1,0 +1,1299 @@
+/*
+  A project's page as a case study (owner's redesign): the head and the cover in a browser frame,
+  the facts, the overview and the key features, the screens (opening large), the next projects.
+  A page of its own: its sections are as tall as their content, not one screen each.
+*/
+main > section.pd-hero,
+main > section.pd-body,
+main > section.pd-shots,
+main > section.pd-near {
+  height: auto;
+  min-height: 0;
+}
+main > section.pd-body,
+main > section.pd-shots,
+main > section.pd-near {
+  padding-top: var(--s-9);
+}
+/* the dealt grounds (pick.mjs: dusk, band) keep the page's rule: as tall as what they hold */
+.pd-body,
+.pd-near {
+  --g-screen: 0px;
+}
+/* the head takes the kit's .hero for its entrance (data-enter) but keeps its own flow, not the hero's grid */
+.pd-hero > .wrap {
+  display: block;
+  height: auto;
+}
+/* the cover's light reaches past the container; the head clips it at the screen's sides, never the page */
+.pd-hero {
+  overflow-x: clip;
+}
+
+/* the page's ground at evening (owner's reference, dark mode only): one full-bleed layer under the whole
+   project page (owner's ask: the head, the features and the next projects, edge to edge), lit
+   silver at the top left (the logo's chrome), falling through the page's navy to a deep cobalt at the right
+   (owner's choice over the reference's violet: the skill allows no violet), under a still, faint grain. The
+   grain belongs to the page's one effect (the logo field) and lies behind every word. Drawn on the page's
+   <main> (PageShell), found by the head it holds; isolated, so z-index -1 stays inside it. */
+:root[data-theme="dark"] main:has(> section.pd-hero) {
+  position: relative;
+  isolation: isolate;
+}
+:root[data-theme="dark"] main:has(> section.pd-hero)::before,
+:root[data-theme="dark"] main:has(> section.pd-hero)::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  /* full bleed, edge to edge and under the floating nav (owner's ask: no inset, no rounded corners) */
+  inset: 0;
+  pointer-events: none;
+}
+:root[data-theme="dark"] main:has(> section.pd-hero)::before {
+  background:
+    /* the silver light along the whole left side, brightest at the top; scales with the page's height,
+       eased stops so no ring shows. Capped (measured on the 1440 and 390 shots) so the head's small words at
+       the top left (the back link, the tag) keep 4.5:1: the corner stays at or under #666b77 */
+    radial-gradient(
+      70% 60% at 0% 0%,
+      color-mix(in oklab, #8a909c 18%, transparent) 0%,
+      color-mix(in oklab, #6a707d 12%, transparent) 30%,
+      color-mix(in oklab, #3a4152 6%, transparent) 55%,
+      transparent 80%
+    ),
+    /* silver grey to navy to deep cobalt (h ~267), left to right */
+    linear-gradient(
+      90deg,
+      #5d626e 0%,
+      #3b4152 18%,
+      #1d2538 38%,
+      #111a2e 55%,
+      #131a34 78%,
+      #161b3c 100%
+    );
+}
+/* still film grain: one inline SVG tile, never animated; dark ink #e8edf5 keeps over 5:1 at the panel's
+   lightest corner (#5d626e) */
+:root[data-theme="dark"] main:has(> section.pd-hero)::after {
+  /* plain alpha, no blend mode: the layer is as tall as the page, and a blended one costs every scroll frame */
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+}
+/* on the panel the features' dusk and the next projects' band paint no ground of their own: one slab, not
+   three; their tokens (ink, muted, line) stay */
+:root[data-theme="dark"] main > section:is(.pd-body, .pd-near) {
+  background: none;
+  /* the kit insets a band on a dark page (backgrounds.css); with no ground of its own that inset only pulls
+     the next projects off the .wrap lines, and its bottom margin left a strip of page dark above the footer */
+  width: auto;
+  margin: 0;
+  border-radius: 0;
+}
+
+.pd-arrow {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- 1. the head ------------------------------------------------------------------------------- */
+/* the head's words and the frame above the logo field */
+.pd-hero > .wrap {
+  position: relative;
+  z-index: 1;
+}
+/* the project's own tools floating behind the head (HeroLogoField), fading out at its foot and towards
+   the name at the left; a desktop only */
+.pd-logos {
+  position: absolute;
+  top: var(--nav);
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 380px;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 50%, transparent),
+    linear-gradient(to right, transparent 35%, #000 65%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 50%, transparent),
+    linear-gradient(to right, transparent 35%, #000 65%);
+  mask-composite: intersect;
+}
+@media (max-width: 1023px) {
+  .pd-logos {
+    display: none;
+  }
+}
+.pd-back {
+  margin: 0 0 var(--s-6);
+}
+.pd-back .link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+/* the arrow here points back (left); the kit's own forward arrow on a .link is left off */
+.pd-back .link::after {
+  content: none;
+}
+/* the name and its tag, over both columns */
+.pd-head {
+  display: grid;
+  gap: var(--s-3);
+}
+.pd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  margin: 0;
+  font: 500 var(--t-label) / 1.3 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.pd-meta > span + span::before {
+  content: "/";
+  margin-right: var(--s-4);
+  color: var(--muted);
+}
+/* outranks the kit's .hero h1 size: the name is the head, a step smaller than before (owner's ask: a long
+   name such as "Risegate – Asset Tokenization Platform" took the whole first screen) */
+.pd-hero .pd-head h1 {
+  margin: 0;
+  font-size: clamp(36px, 5.6vw, 88px);
+  line-height: 0.96;
+}
+.pd-lead {
+  margin: 0;
+  color: var(--muted);
+}
+/* the visit button names where it leads under its label; it spans the whole column (owner's ask) */
+.pd-visit {
+  justify-self: stretch;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: auto;
+  min-height: var(--btn-h);
+  padding-block: var(--s-2);
+  text-align: center;
+}
+.pd-visit__host {
+  flex-basis: 100%;
+  font: 500 11px / 1.2 var(--font-mono);
+  opacity: 0.75;
+}
+/* at evening the visit button is the logo's chrome (owner's ask): a silver sweep with a bright edge at
+   either end, the dark label on it (#060912 over 7:1 on its darkest stop, #9aa3b1). Outranks the page's
+   cyan primary and its hover and press (globals.css). */
+:root[data-theme="dark"] .pd-visit.btn.btn--primary {
+  border-color: transparent;
+  background: linear-gradient(120deg, #f4f6fa 0%, #cdd3dc 35%, #9aa3b1 55%, #d9dee6 80%, #f1f3f7 100%);
+  color: #060912;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6);
+}
+:root[data-theme="dark"]:not([data-motion="off"]) .pd-visit.btn.btn--primary:hover {
+  background: linear-gradient(120deg, #f4f6fa 0%, #cdd3dc 35%, #9aa3b1 55%, #d9dee6 80%, #f1f3f7 100%);
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    0 10px 28px -12px rgb(205 211 220 / 0.55);
+}
+:root[data-theme="dark"]:not([data-motion="off"]) .pd-visit.btn.btn--primary:active {
+  filter: brightness(0.95);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+
+/* the cover in a browser frame. Its 1px edge is the logo's sweep, lit at the top left and fading through the
+   page's line, drawn as a second background clipped to the border box (as the outlined button, globals.css) */
+.pd-frame,
+.pd-tour__stage {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+        140deg,
+        color-mix(in oklab, var(--grad-from) 75%, transparent),
+        color-mix(in oklab, var(--ink) 12%, transparent) 38%,
+        color-mix(in oklab, var(--ink) 8%, transparent) 70%,
+        color-mix(in oklab, var(--grad-to) 55%, transparent)
+      )
+      border-box;
+}
+.pd-frame {
+  position: relative;
+  margin-top: var(--s-8);
+  border-radius: var(--r-lg);
+  box-shadow: 0 40px 120px -60px color-mix(in oklab, var(--grad-from) 55%, transparent);
+}
+/* the lit studio sweep (backgrounds.md, recipes): one still light in the logo's cyan behind the window, centred
+   a little above its middle, with a faint bounce under its foot; eased stops, so no ring shows. It lies behind
+   the frame inside the head's .wrap (the frame makes no stacking context of its own). */
+.pd-frame::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -14% -10% -22%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      56% 46% at 50% 38%,
+      color-mix(in oklab, var(--grad-from) 30%, transparent) 0%,
+      color-mix(in oklab, var(--grad-from) 18%, transparent) 28%,
+      color-mix(in oklab, var(--grad-to) 9%, transparent) 52%,
+      color-mix(in oklab, var(--grad-to) 3%, transparent) 72%,
+      transparent 90%
+    ),
+    radial-gradient(
+      42% 14% at 50% 96%,
+      color-mix(in oklab, var(--grad-from) 14%, transparent) 0%,
+      color-mix(in oklab, var(--grad-from) 5%, transparent) 50%,
+      transparent 100%
+    );
+}
+.pd-frame__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  height: 40px;
+  padding: 0 var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+.pd-frame__dots {
+  display: flex;
+  gap: 6px;
+}
+.pd-frame__dots > i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--ink) 18%, transparent);
+}
+.pd-frame__url {
+  flex: 1;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 4px var(--s-3);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink) 6%, transparent);
+  font: 500 12px / 1.2 var(--font-mono);
+  text-align: center;
+  color: var(--muted);
+}
+.pd-frame__screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+}
+.pd-frame__screen > img {
+  object-fit: cover;
+  object-position: 50% 0;
+}
+
+/* ---- 2. the facts, the overview, the key features ---------------------------------------------- */
+/* the facts as a hairline ledger (backgrounds.md: 1px sibling rules at 12-15% ink): one row of cells, a rule
+   above and below it and between the cells; parted from the story by air */
+.pd-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 3fr);
+  margin: 0 0 var(--s-9);
+  padding: 0;
+  border-block: 1px solid color-mix(in oklab, var(--ink) 14%, transparent);
+}
+.pd-facts > div {
+  padding: var(--s-5) var(--s-5) var(--s-5) 0;
+}
+.pd-facts > div + div {
+  padding-left: var(--s-5);
+  border-left: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+}
+.pd-facts dt {
+  margin-bottom: var(--s-2);
+  font: 500 var(--t-label) / 1.3 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pd-facts dd {
+  margin: 0;
+  font-weight: 500;
+  color: var(--ink);
+}
+.pd-facts__stack ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pd-facts__stack li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 3px var(--s-3) 3px 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--t-small);
+}
+.pd-mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: color-mix(in oklab, #ffffff 92%, var(--bg));
+}
+.pd-mark > img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+.pd-mark__initials {
+  font: 600 8px / 1 var(--font-mono);
+  color: #16181a;
+}
+
+.pd-story {
+  display: grid;
+  /* the overview and the features on the page's two halves (the grid's split line) */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: var(--s-8);
+  align-items: start;
+}
+.pd-story h2 {
+  margin: 0 0 var(--s-5);
+  font-size: clamp(28px, 2.6vw, 40px);
+}
+.pd-overview p {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--t-lead);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.pd-features ol {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pd-features li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: start;
+  padding: var(--s-4) var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background-color: var(--surface);
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.pd-features__n {
+  font: 500 var(--t-label) / 1.6 var(--font-mono);
+  color: var(--accent);
+}
+.pd-features li p {
+  margin: 0;
+  color: var(--ink);
+}
+
+/* ---- 3. the screens ---------------------------------------------------------------------------- */
+.pd-shots h2 {
+  margin: 0 0 var(--s-6);
+  font-size: clamp(28px, 2.6vw, 40px);
+}
+/* the product tour: the frame with the screen in hand, the numbered screens beside it */
+.pd-tour {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--s-5);
+  align-items: start;
+}
+/* its edge: the frame's sweep (above) */
+.pd-tour__stage {
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  box-shadow: 0 40px 100px -60px color-mix(in oklab, var(--grad-from) 50%, transparent);
+}
+.pd-tour .pd-frame__bar {
+  position: relative;
+}
+.pd-tour__count {
+  font: 500 12px / 1 var(--font-mono);
+  color: var(--accent);
+}
+.pd-tour__screen {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  cursor: zoom-in;
+  /* vertical scrolling stays with the browser; sideways moves are the tour's swipe */
+  touch-action: pan-y;
+}
+.pd-tour__screen:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+/* every screen stacked; the one in hand fades and settles in */
+.pd-tour__img {
+  object-fit: cover;
+  object-position: 50% 0;
+  opacity: 0;
+  scale: 1.03;
+  transition:
+    opacity 600ms ease,
+    scale 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pd-tour__img[data-on] {
+  opacity: 1;
+  scale: 1;
+}
+
+.pd-tour__side {
+  display: grid;
+  /* one shrinkable column: the sideways row of screens on smaller screens must not widen the page */
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  gap: var(--s-3);
+}
+.pd-tour__list {
+  position: relative;
+  display: grid;
+  gap: var(--s-2);
+  max-height: 560px;
+  margin: 0;
+  padding: 0 var(--s-1) 0 0;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+.pd-tour__step {
+  /* holds its sr-only name: unanchored, it would escape the scrolling row and widen the page */
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease;
+}
+.pd-tour__step:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+.pd-tour__step[aria-current] {
+  border-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  color: var(--ink);
+}
+.pd-tour__step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pd-tour__thumb {
+  position: relative;
+  width: 72px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.pd-tour__thumb > img {
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.pd-tour__n {
+  font: 500 var(--t-label) / 1 var(--font-mono);
+}
+/* the progress: the screen in hand fills from the left in 5 s; a finished one stays full */
+.pd-tour__bar {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--ink) 10%, transparent);
+}
+.pd-tour__step[data-done] .pd-tour__bar {
+  background: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+.pd-tour__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--brand-gradient);
+  transform-origin: left center;
+  animation-name: pd-tour-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+.pd-tour[data-running] .pd-tour__fill {
+  animation-play-state: running;
+}
+@keyframes pd-tour-fill {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+.pd-tour__toggle {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: none;
+  font: 500 var(--t-small) / 1 var(--font-text);
+  color: var(--ink);
+  cursor: pointer;
+}
+.pd-tour__toggle:hover {
+  border-color: var(--accent);
+}
+.pd-tour__toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pd-tour__toggle > svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the gallery (ProjectGallery): structure only; its look is the design phase's (Phase 7).
+   One large slide (the screens stacked, the one in hand shown), arrows at its sides, the count at its
+   lower left, "view all" at its lower right, a row of thumbnails under it scrolling sideways. */
+.pd-gallery {
+  margin-top: var(--s-6);
+}
+.pd-gallery__stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.pd-gallery__screen {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  cursor: zoom-in;
+  /* vertical scrolling stays with the browser; sideways moves are the gallery's swipe */
+  touch-action: pan-y;
+}
+.pd-gallery__screen:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.pd-gallery__img {
+  object-fit: cover;
+  object-position: 50% 0;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.pd-gallery__img[data-on] {
+  opacity: 1;
+}
+.pd-gallery__arrow {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: rgb(6 9 18 / 0.7);
+  color: #e8edf5;
+  cursor: pointer;
+}
+.pd-gallery__arrow[data-dir="prev"] {
+  left: var(--s-4);
+}
+.pd-gallery__arrow[data-dir="next"] {
+  right: var(--s-4);
+}
+.pd-gallery__arrow > svg,
+.pd-gallery__all > svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pd-gallery__count {
+  position: absolute;
+  bottom: var(--s-4);
+  left: var(--s-4);
+  margin: 0;
+  padding: 4px var(--s-3);
+  border-radius: var(--r-sm);
+  background: rgb(6 9 18 / 0.7);
+  font: 500 var(--t-label) / 1.4 var(--font-mono);
+  color: #e8edf5;
+}
+.pd-gallery__all {
+  position: absolute;
+  right: var(--s-4);
+  bottom: var(--s-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 0;
+  border-radius: var(--r-md);
+  background: rgb(6 9 18 / 0.8);
+  font: 500 var(--t-small) / 1 var(--font-text);
+  color: #e8edf5;
+  cursor: pointer;
+}
+.pd-gallery__arrow:focus-visible,
+.pd-gallery__all:focus-visible,
+.pd-gallery__thumb:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pd-gallery__thumbs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 4 * var(--s-3)) / 5);
+  gap: var(--s-3);
+  margin: var(--s-4) 0 0;
+  padding: 0 0 var(--s-1);
+  overflow: auto hidden;
+  list-style: none;
+  scrollbar-width: thin;
+}
+.pd-gallery__thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  cursor: pointer;
+}
+.pd-gallery__thumb[aria-current] {
+  border-color: var(--accent);
+}
+.pd-gallery__thumb > img {
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.pd-tag {
+  justify-self: start;
+  margin: 0;
+}
+
+/* the screens on seven of the grid's twelve columns, the overview, facts and visit button on five */
+.pd-split {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: var(--s-7);
+  align-items: start;
+  margin-top: var(--s-7);
+}
+.pd-split > .pd-gallery {
+  grid-column: 1 / span 7;
+  margin-top: 0;
+}
+.pd-aside {
+  grid-column: 8 / -1;
+  display: grid;
+  gap: var(--s-5);
+  justify-items: start;
+}
+.pd-aside h2 {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 32px);
+}
+.pd-aside .pd-overview {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--ink);
+}
+/* in the narrow column the facts run two cells a row, the tools under them on a row of their own */
+.pd-hero .pd-facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  margin: 0;
+}
+.pd-hero .pd-facts > .pd-facts__stack {
+  grid-column: 1 / -1;
+  padding-left: 0;
+  border-left: 0;
+  border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+}
+@media (max-width: 1023px) {
+  .pd-split > .pd-gallery,
+  .pd-aside {
+    grid-column: 1 / -1;
+  }
+}
+
+/* phones (S1): the count and "view all" leave the picture and sit in a row under it; the arrows stay
+   on the picture's middle, measured on the stage's own width (16:9) */
+@media (max-width: 639px) {
+  .pd-gallery__stage {
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+  .pd-gallery__screen {
+    flex-basis: 100%;
+  }
+  .pd-gallery__arrow {
+    top: calc(100cqw * 9 / 32);
+  }
+  .pd-gallery__count,
+  .pd-gallery__all {
+    position: static;
+    margin: 0 var(--s-3) var(--s-3);
+  }
+}
+
+/* the grid of every screen (ScreenGrid): the browser's modal dialog, structure only */
+.pd-grid {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+.pd-grid::backdrop {
+  background: rgb(6 9 18 / 0.94);
+  backdrop-filter: blur(6px);
+}
+.pd-grid__inner {
+  box-sizing: border-box;
+  width: min(100%, var(--container) + 2 * var(--pad));
+  margin-inline: auto;
+  padding: var(--s-5) var(--pad) var(--s-7);
+}
+.pd-grid__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+.pd-grid__title {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 32px);
+}
+.pd-grid__count {
+  font: 500 var(--t-label) / 1 var(--font-mono);
+  color: var(--muted);
+}
+.pd-grid__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pd-grid__tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  cursor: zoom-in;
+}
+.pd-grid__tile > img {
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.pd-grid__tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 639px) {
+  .pd-gallery__thumbs {
+    grid-auto-columns: 40%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-gallery__img {
+    transition: none;
+  }
+}
+
+/* the viewer: the browser's modal dialog, the screen large on the page's dark */
+.pd-viewer {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  /* sideways moves are the viewer's swipe */
+  touch-action: pan-y;
+}
+.pd-viewer::backdrop {
+  background: rgb(6 9 18 / 0.92);
+  backdrop-filter: blur(6px);
+}
+.pd-viewer__inner {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--s-4);
+  height: 100%;
+  padding: var(--s-4) var(--gut) var(--s-6);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.pd-viewer__inner > * {
+  pointer-events: auto;
+}
+.pd-viewer__bar,
+.pd-viewer__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pd-viewer__nav {
+  justify-content: center;
+  gap: var(--s-4);
+}
+.pd-viewer__count {
+  font: 500 var(--t-label) / 1 var(--font-mono);
+  color: var(--muted);
+}
+.pd-viewer__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in oklab, var(--ink) 22%, transparent);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+}
+.pd-viewer__btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.pd-viewer__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pd-viewer__btn > svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pd-viewer__frame {
+  position: relative;
+  margin: 0;
+  pointer-events: none;
+}
+.pd-viewer__frame > img {
+  object-fit: contain;
+}
+
+/* ---- 4. more projects (MoreProjects): structure only; the look is the design phase's ----------- */
+/* the closing's own top space follows: the gap to it matches the page's other gaps */
+main > section.pd-near {
+  padding-bottom: var(--s-7);
+}
+/* the heading and "all projects" on one row, the cards under them: four a row, two under 1024px, one
+   sideways-scrolling row on phones */
+.pd-more__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-5);
+  margin-bottom: var(--s-6);
+}
+.pd-more__title {
+  margin: 0;
+  font-size: clamp(28px, 2.6vw, 40px);
+}
+.pd-more__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pd-more__card {
+  display: grid;
+  gap: var(--s-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+.pd-more__img {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  margin-bottom: var(--s-2);
+}
+.pd-more__img > img {
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.pd-more__name {
+  font-weight: 500;
+}
+.pd-more__sub {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+/* at evening the first card sits on the panel's silver side, where the band's muted (#abb4c1) read 3.1:1
+   (measured, S2); a pale silver keeps 4.8:1 there and stays a step under the name's ink (#e8edf5) */
+:root[data-theme="dark"] .pd-more__sub {
+  color: #d6dbe3;
+}
+.pd-more__card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--r-md);
+}
+/* hover (owner's ask, S1; house rule 5): the linked card lifts 2px, its picture zooms 1.03 inside its
+   frame, its frame and name light up; a pointer that hovers only, still under reduced motion */
+.pd-more__card {
+  transition: translate 300ms var(--ease);
+}
+.pd-more__img {
+  transition: border-color var(--dur) var(--ease);
+}
+.pd-more__img > img {
+  transition: scale 600ms var(--ease);
+}
+.pd-more__name {
+  transition: color var(--dur) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pd-more__card:hover {
+    translate: 0 -2px;
+  }
+  .pd-more__card:hover .pd-more__img {
+    border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  }
+  .pd-more__card:hover .pd-more__img > img {
+    scale: 1.03;
+  }
+  .pd-more__card:hover .pd-more__name {
+    color: var(--accent);
+  }
+  /* at evening the name takes the logo's silver, as the visit button does */
+  :root[data-theme="dark"] .pd-more__card:hover .pd-more__name {
+    color: #f4f6fa;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-more__card,
+  .pd-more__img > img {
+    transition: none;
+  }
+  .pd-more__card:hover {
+    translate: none;
+  }
+  .pd-more__card:hover .pd-more__img > img {
+    scale: none;
+  }
+}
+@media (max-width: 1023px) {
+  .pd-more__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+/* phones: one sideways row, each card 75% wide, snapping card by card; the row runs out to the screen's
+   right edge (owner's ask, S3) so the next card shows it is there, and its last card ends on the gutter */
+@media (max-width: 639px) {
+  .pd-more__list {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 75%;
+    gap: var(--s-4);
+    margin-right: calc(-1 * var(--gut));
+    padding-right: var(--gut);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .pd-more__list::-webkit-scrollbar {
+    display: none;
+  }
+  .pd-more__list > li {
+    scroll-snap-align: start;
+  }
+}
+
+/* ---- tablets and phones ------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .pd-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* the tools take the ledger's second row, under a rule of their own */
+  .pd-facts__stack {
+    grid-column: 1 / -1;
+  }
+  .pd-facts > .pd-facts__stack {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+  }
+  .pd-story {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* the numbered screens become one row under the frame, scrolling sideways */
+  .pd-tour {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pd-tour__list {
+    grid-auto-flow: column;
+    grid-auto-columns: 200px;
+    max-height: none;
+    padding: 0 0 var(--s-1);
+    overflow: auto hidden;
+  }
+}
+/* phones (owner's ask: the gaps were too wide, measured at 390): the kit's hero gives its rows a 48px
+   gap on top of the page's own margins (back link to name 80, tag to screens 96). Here the head's
+   rows sit 24 apart and the screens 32 under the tag, the head starts 24 under the nav, and the
+   sections 48 (features) and 48 (more projects) under the one before; the page's foot keeps 32. */
+@media (max-width: 639px) {
+  main > section.pd-hero {
+    padding-top: calc(var(--nav) + var(--s-5));
+  }
+  main > section.pd-hero > .wrap {
+    row-gap: var(--s-5);
+  }
+  .pd-back {
+    margin-bottom: 0;
+  }
+  .pd-split {
+    row-gap: var(--s-6);
+    margin-top: var(--s-2);
+  }
+  /* the features' own rules come later in this file: these outrank them */
+  :root main > section.section.bg-dusk.pd-body {
+    padding-top: var(--s-6);
+  }
+  .pd-body .pd-feat {
+    row-gap: var(--s-5);
+  }
+  /* the kit's band spacing (backgrounds.css: .section:is(.bg-band):not(..)) outranks a plain selector */
+  main > section.pd-shots,
+  main > section.section.bg-band.pd-near {
+    padding-top: var(--s-7);
+  }
+  /* and it pads the page's last band with !important (:last-of-type); the only way past it */
+  :root main > section.section.bg-band.pd-near:last-of-type {
+    padding-bottom: var(--s-6) !important;
+  }
+  .pd-more__head {
+    margin-bottom: var(--s-5);
+  }
+  .pd-frame {
+    margin-top: var(--s-6);
+  }
+  .pd-frame__bar {
+    height: 32px;
+  }
+  .pd-tour__list {
+    grid-auto-columns: 168px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-tour__img {
+    transition: none;
+  }
+}
+
+/* ---- the key features (FeatureList) ------------------------------------------------------------- */
+/* the section is as tall as its list (owner's ask, S3): the dusk ground's own padding (its melting edges)
+   is not wanted on the shared panel, so it keeps the page's top gap and a short foot; the next projects'
+   own top space follows */
+main > section.section.bg-dusk.pd-body {
+  padding-block: var(--s-9) 0;
+}
+/* the heading on four of the grid's twelve columns, held under the nav while the list passes; the
+   numbered list on the other eight; stacked under 1024px */
+.pd-feat {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: var(--s-6);
+  align-items: start;
+}
+.pd-feat__title {
+  grid-column: 1 / span 4;
+  position: sticky;
+  top: calc(var(--nav) + var(--s-6));
+  margin: 0;
+  font-size: clamp(28px, 2.6vw, 40px);
+}
+.pd-feat__list {
+  grid-column: 5 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* a row: the number in a fixed column, the sentence at lead size (owner's ask, S1: the list carries
+   weight beside the large heading); parted by hairlines at 14% ink (backgrounds.md: sibling rules) */
+.pd-feat__item {
+  /* the hover's line: the page's accent on the light page, the logo's silver at evening */
+  --feat-line: var(--accent);
+  position: relative;
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: baseline;
+  padding-block: var(--s-6);
+  border-top: 1px solid color-mix(in oklab, var(--ink) 14%, transparent);
+}
+:root[data-theme="dark"] .pd-feat__item {
+  --feat-line: linear-gradient(90deg, #f4f6fa, #cdd3dc 40%, color-mix(in oklab, #9aa3b1 40%, transparent));
+}
+.pd-feat__item:last-child {
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 14%, transparent);
+}
+.pd-feat__n {
+  font: 500 var(--t-small) / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.pd-feat__text {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink);
+}
+/* hover (owner's ask, S2; house rule 5: underlines draw): the line above the row draws in from the left,
+   the number lights up and the sentence steps 4px right. The rows are no links, so it stays quiet; a
+   pointer that hovers only. */
+.pd-feat__item::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--feat-line);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 500ms var(--ease);
+}
+.pd-feat__n,
+.pd-feat__text {
+  transition:
+    color var(--dur) var(--ease),
+    text-shadow var(--dur) var(--ease),
+    translate 300ms var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pd-feat__item:hover::before {
+    transform: scaleX(1);
+  }
+  .pd-feat__item:hover .pd-feat__n {
+    text-shadow: 0 0 12px color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+  :root[data-theme="dark"] .pd-feat__item:hover .pd-feat__n {
+    color: #f4f6fa;
+  }
+  .pd-feat__item:hover .pd-feat__text {
+    translate: 4px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pd-feat__item::before,
+  .pd-feat__n,
+  .pd-feat__text {
+    transition: none;
+  }
+  .pd-feat__item:hover .pd-feat__text {
+    translate: none;
+  }
+}
+@media (max-width: 639px) {
+  main > section.section.bg-dusk.pd-body {
+    padding-top: var(--s-8);
+  }
+  .pd-feat__item {
+    gap: var(--s-4);
+    padding-block: var(--s-5);
+  }
+}
+@media (max-width: 1023px) {
+  .pd-feat__title,
+  .pd-feat__list {
+    grid-column: 1 / -1;
+  }
+  .pd-feat__title {
+    position: static;
+  }
+}

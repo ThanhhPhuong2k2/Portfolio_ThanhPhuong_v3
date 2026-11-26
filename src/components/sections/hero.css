@@ -1,0 +1,184 @@
+/*
+  Hero page CSS (hero--portrait, after the owner's reference picture). The kit owns the hero's
+  box (one screen, its padding, the .wrap); this places the pieces on the 12-column grid.
+  At 1440x900 the content box runs y 120 to 836 on the .wrap's lines (x 80 to 1360).
+*/
+
+/* ------------------------------------------------------------ the grid */
+.hero-portrait {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  column-gap: var(--gutter);
+  height: 100%;
+}
+.hero-portrait > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* the greeting: Bricolage at its full width (its axis runs 75-100), centred above the portrait's head */
+.hero-portrait__greeting {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  margin: 0;
+  font: var(--display-weight) clamp(56px, 8.4vw, 124px) / 1 var(--font-display);
+  font-stretch: 100%;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+/* the portrait: the cut-out stands on the hero's foot (it bleeds through the bottom padding to
+   the section's edge), centred, behind the words (z 1) */
+.hero-portrait > .hero-portrait__figure {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: calc(-1 * (var(--hpadb) + var(--bar)));
+  translate: -50% 0;
+  height: min(640px, calc(100% + var(--hpadb) - 80px));
+  aspect-ratio: 846 / 856;
+  pointer-events: none;
+}
+.hero-portrait__figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  /* the cut-out ends at the file's right edge on the shoulder: let that edge fade out */
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 9%);
+  mask-image: linear-gradient(to left, transparent, #000 9%);
+}
+
+/* mid height: the pill on the left line, the speciality from column 10 */
+.hero-portrait__pill {
+  grid-column: 1 / span 4;
+  grid-row: 2;
+  align-self: center;
+  justify-self: start;
+  margin: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.hero .hero-portrait__speciality {
+  grid-column: 10 / -1;
+  grid-row: 2;
+  align-self: center;
+  margin: 0;
+  font-size: var(--t-body);
+  max-width: 30ch;
+}
+
+/* the foot: the h1 bottom left, the role and the actions bottom right; both condensed (75%) */
+.hero .hero-portrait__title {
+  grid-column: 1 / span 5;
+  grid-row: 3;
+  align-self: end;
+  margin: 0;
+  font-size: clamp(44px, 5.8vw, 88px);
+  font-stretch: 75%;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hero-portrait__role {
+  grid-column: 10 / -1;
+  grid-row: 3;
+  align-self: end;
+  display: grid;
+  justify-items: end;
+  gap: var(--s-5);
+  text-align: right;
+}
+.hero-portrait__role-text {
+  margin: 0;
+  /* under 40px, so it reads as a line, not a second heading (one-heading) */
+  font: var(--display-weight) clamp(28px, 2.7vw, 39px) / 1.05 var(--font-display);
+  font-stretch: 75%;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 12ch;
+}
+.hero-portrait__role .btn-row {
+  justify-content: flex-end;
+  margin: 0;
+}
+/* two facts people read: in ink (7:1), not muted; one a line */
+.hero-portrait__role .hero__proof {
+  display: grid;
+  margin: 0;
+  font-size: var(--t-small);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------ tablet and phone: one column
+   the pill and the greeting first, the portrait in what is left, then the name, role, actions */
+@media (max-width: 1023px) {
+  .hero-portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-4);
+  }
+  .hero-portrait__pill { order: 1; }
+  .hero-portrait__greeting { order: 2; }
+  .hero .hero-portrait__speciality { order: 3; }
+  .hero-portrait > .hero-portrait__figure {
+    order: 4;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    translate: none;
+    align-self: center;
+    height: auto;
+    width: auto;
+    flex: 1 1 0;
+    min-height: 160px;
+  }
+  .hero .hero-portrait__title { order: 5; }
+  /* the grid placed these by align-self (end, center); in the column they all start on the left line */
+  .hero .hero-portrait > :not(.hero-portrait__figure) { align-self: flex-start; }
+  .hero-portrait__role {
+    order: 6;
+    justify-items: start;
+    text-align: left;
+  }
+  .hero-portrait__role .btn-row { justify-content: flex-start; }
+  .hero-portrait__role-text { max-width: none; }
+}
+@media (max-width: 639px) {
+  .hero .hero-portrait__speciality,
+  .hero-portrait__role .hero__proof {
+    display: none;
+  }
+  /* a phone's buttons run the column's width (owner's ask, taste-skill checklist): the role block
+     takes the full width (the column above starts every block at its content's width) */
+  .hero .hero-portrait > .hero-portrait__role {
+    align-self: stretch;
+    justify-items: stretch;
+  }
+  .hero-portrait__role .btn-row {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------ the logo field (the page's one effect)
+   A canvas layer beside the .wrap (layout-v4.md: a section is one in-flow .wrap plus background
+   layers: img, picture, video or canvas). HeroLogoField draws the real library logos faint and
+   blurred, floating 9px each way over 8s, resting where the words are.
+   It starts under the fixed nav, so the bar never covers a part of it (collide). */
+.hero-logos {
+  position: absolute;
+  inset: var(--nav) 0 0 0;
+  z-index: 0;
+  width: 100%;
+  height: calc(100% - var(--nav));
+  pointer-events: none;
+  /* rest where the words are: the field fades to 30% over the name at the bottom left (a still mask,
+     composited by the GPU; it was a per-frame canvas composite: performance audit) */
+  -webkit-mask-image: radial-gradient(36% 40% at 20% 80%, rgb(0 0 0 / 0.3), #000);
+  mask-image: radial-gradient(36% 40% at 20% 80%, rgb(0 0 0 / 0.3), #000);
+}

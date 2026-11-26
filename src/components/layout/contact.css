@@ -1,0 +1,394 @@
+/*
+  Contact (footer.closing, owner's redesign: no name set large, no link columns). The close: the
+  availability pill beside the h2, then the three channel cards, tall, filling what the screen
+  leaves; under it a slim bar in the mono face (the legal line, the section links, the marks).
+  The cards are the kit's .card (its 2px hover lift comes from motion.css); this file sets their
+  layout, the real marks on light tiles, the copy button and the bar.
+*/
+
+/* ---- the close ----------------------------------------------------------- */
+/* At least one screen, never a fixed one: the kit holds footer.closing to exactly 100svh from 1280px,
+   so on a wide but short window (1480 x 680) the goal line ran over the bar. The close now grows
+   with its content there too, as the kit already does below 1280. */
+@media (min-width: 1280px) {
+  footer.closing.contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  footer.closing.contact > .wrap {
+    height: auto;
+  }
+}
+footer.contact > .wrap {
+  row-gap: var(--s-7);
+}
+/* 24px between the close's parts: the head, cards, stats and goal line fit one 900px screen at 1440 */
+footer.contact .closing__cta {
+  gap: var(--s-5);
+}
+
+/* the h2 and the availability pill on one line, the pill centred on the heading */
+.closing__cta .contact__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-5);
+}
+.contact__status {
+  margin: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+/* ---- the channel cards --------------------------------------------------- */
+/* the row keeps its own height (owner's ask: cards of a set size, not stretched to the screen) */
+.contact__channels {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--card-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* a tablet (640-1023): the email card across the row, LinkedIn and GitHub side by side under it */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .contact__channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contact__channels > .contact__card[data-channel="email"] {
+    grid-column: 1 / -1;
+  }
+}
+/* from 1024px one row; the email card is wider, for the address set large */
+@media (min-width: 1024px) {
+  .contact__channels {
+    grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  }
+}
+/* from 640px each card has one set height: the mark and action on top, the name and address at the
+   foot, the space between them free to shrink (24 + 48 + 12 + 18 + 32 + 24 = 158 at the least) */
+@media (min-width: 640px) {
+  .contact__channels > .contact__card {
+    height: 184px;
+    grid-template-rows: auto minmax(var(--s-3), 1fr) auto;
+  }
+}
+
+/* .contact__channels > outweighs the kit's .card (a flex column), whatever order the sheets load in.
+   The mark top left, the action top right, the channel's name and address at the foot. */
+.contact__channels > .contact__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(var(--s-6), 1fr) auto;
+  grid-template-areas:
+    "mark . action"
+    ". . ."
+    "text text text";
+  align-items: start;
+  padding: var(--s-5);
+  overflow: hidden;
+  border-radius: var(--r-md);
+  /* a faint dot grid on the card's ground: the page's tech register, quiet enough to read over */
+  background-color: var(--card);
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 9%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: -8px -8px;
+  transition:
+    border-color 240ms var(--ease, ease),
+    box-shadow 240ms var(--ease, ease);
+}
+.contact__channels > .contact__card:hover {
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent) 25%, transparent),
+    0 18px 48px -24px color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+/* the real mark on a light tile: black marks (GitHub) read on the dark ground too */
+.contact__mark {
+  grid-area: mark;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in oklab, #ffffff 92%, var(--bg));
+}
+.contact__mark > img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.contact__text {
+  grid-area: text;
+  display: grid;
+  gap: var(--s-2);
+  min-width: 0;
+}
+/* the channel's name: a mono label */
+.contact__label {
+  margin: 0;
+  font: 500 var(--t-label) / 1.3 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+.contact__link {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(22px, 1.9vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+/* the whole card is the link */
+.contact__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+/* the focus ring goes round the whole card (on the link's cover); the link's own outline stays,
+   transparent, so a forced-colours screen still draws it */
+.contact__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.contact__link:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* the arrow: a new tab; it steps out on hover */
+.contact__arrow {
+  grid-area: action;
+  width: 16px;
+  height: 16px;
+  margin-top: var(--s-2);
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    translate 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke 200ms ease;
+}
+.contact__card:hover .contact__arrow {
+  translate: 2px -2px;
+  stroke: var(--accent);
+}
+
+/* the copy button: the kit's secondary button (one button pair a page), laid over the card's link
+   so it stays its own target; its result in the accent */
+.contact__copy {
+  grid-area: action;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+.contact__copy[data-state="copied"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---- the stats row: four figures, hairlines only between them ------------- */
+/* no rule across the row: the close's parts are parted by air (taste-skill section-air) */
+.contact__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+}
+.contact__stat {
+  display: flex;
+  flex-direction: column-reverse; /* the figure above its label; the label stays the term */
+  justify-content: flex-end;
+  gap: var(--s-1);
+  padding: var(--s-4) var(--s-5);
+}
+.contact__stat:first-child {
+  padding-left: 0;
+}
+.contact__stat + .contact__stat {
+  border-left: 1px solid var(--line);
+}
+.contact__stat dt {
+  font: 500 var(--t-label) / 1.3 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+.contact__stat dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1;
+  letter-spacing: var(--display-tracking);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+/* a phone: the stats row is left out (owner's ask: a shorter close on small screens; the cards and
+   the goal line carry it). The figures stay on the hero and the projects and skills headings. */
+@media (max-width: 639px) {
+  .contact__stats {
+    display: none;
+  }
+}
+/* ---- the owner's goal, set large under the cards -------------------------- */
+/* it takes the room left above the bar and sits at its foot, so the close ends on it */
+.contact__tagline {
+  margin: auto 0 0;
+  padding-top: var(--s-4);
+  /* across the whole .wrap, edge to edge (owner's ask) */
+  max-width: none;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.15;
+  letter-spacing: var(--display-tracking);
+  text-wrap: pretty;
+  color: var(--muted);
+}
+.contact__tagline-mark {
+  color: var(--accent);
+}
+
+/* ---- the bar ------------------------------------------------------------- */
+.closing__links.footer__bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--s-4) var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font: 500 var(--t-label) / 1.4 var(--font-mono);
+  color: var(--muted);
+}
+.footer__legal-line {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin: 0;
+}
+/* .footer__bar outweighs the kit's ".footer ul" (a column); the class is not the kit's .footer__nav */
+.footer__bar .footer__sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer__sections a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+}
+/* the hover colour only where there is a pointer that hovers (a touch screen keeps the ink) */
+@media (hover: hover) {
+  .footer__sections a {
+    transition: color 200ms ease;
+  }
+  .footer__sections a:hover {
+    color: var(--accent);
+  }
+}
+.footer__sections a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* a phone: the three section links on one line beside the marks */
+@media (max-width: 639px) {
+  .closing__links.footer__bar {
+    column-gap: var(--s-3);
+  }
+  .footer__bar .footer__sections {
+    gap: 0 var(--s-3);
+  }
+}
+
+/* tablets: the legal line over the links and the marks */
+@media (max-width: 1023px) {
+  .closing__links.footer__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .footer__legal-line {
+    grid-column: 1 / -1;
+  }
+}
+
+/* a phone: the cards stack, one line each; the address wraps before its "@"; the copy button runs
+   full width (taste-skill checklist) */
+@media (max-width: 639px) {
+  /* one line a card: the mark, the name and address, the arrow; the email card's copy button
+     runs full width under it */
+  .contact__channels > .contact__card {
+    grid-template-rows: auto;
+    grid-template-areas: "mark text action";
+    align-items: center;
+    column-gap: var(--s-4);
+    padding: var(--s-4);
+  }
+  .contact__channels > .contact__card[data-channel="email"] {
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "mark text text"
+      "action action action";
+  }
+  .contact__channels > .contact__card[data-channel="email"] .contact__copy {
+    justify-self: stretch;
+    margin-top: var(--s-4);
+  }
+  .contact__arrow {
+    margin-top: 0;
+  }
+  /* the address wraps (before its "@" first, inside a word only when a word alone is too long:
+     the GitHub name at 320), never cut */
+  .contact__link {
+    font-size: 20px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* the narrowest phones (320): a step smaller so the names fit their line */
+@media (max-width: 359px) {
+  .contact__link {
+    font-size: 18px;
+  }
+  .contact__channels > .contact__card {
+    column-gap: var(--s-3);
+    padding: var(--s-3);
+  }
+  .contact__mark {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__arrow,
+  .contact__channels > .contact__card {
+    transition: none;
+  }
+  .contact__card:hover .contact__arrow {
+    translate: none;
+  }
+}

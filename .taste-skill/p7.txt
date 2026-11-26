@@ -1,0 +1,204 @@
+consistency  D:\WorkSpaces\project\phuong-portfolio-v3\out\index.html
+--quick: not checked: scroll-linked (stepping), scroll-reveal (the reveal walk; IntersectionObserver reveals are read), hover-spill, hidden-visual, loop-pause, forms, reduced-motion, the dead-IntersectionObserver walk (hidden content is read with scripts off and under reduced motion), hover-move. Still told: IntersectionObserver reveals (scroll-reveal), held sections (pinned) and CSS scroll timelines (scroll-linked); faults inside held or [data-big-scene] sections are WARNs
+
+1440x900  5 screens  11 FAIL  27 WARN
+  FAIL empty-visual    ul.projects__track > li:nth-of-type(2) > a.projects__shot > img  "og-image.png?v=4"
+       the picture shows nothing here: with it hidden the screen looks the same (the picture is there but invisible: faded out, clipped or covered), so the visitor sees only the ground behind it (and 9 more like it: "og-image.png?v=4", "oQYoVQDeWpZRiRLNZegGTlOS", "Screenshot_2026-07-11_11", "Screenshot_2026-09-29_00", ...)  [1440-07-empty-visual.jpg]
+       fix: make the visual draw at every width: a picture that loads, an effect that renders, or its still fallback; never an empty frame
+  FAIL empty-visual    ul.projects__track > li:nth-of-type(2) > a.projects__shot > img  "Yyg3RYi3N3nLRtOoLhHzPEa0ryA.png?scale-do"
+       the picture shows nothing here: 100% of it is one colour (#060912) (and 1 more like it: "Yyg3RYi3N3nLRtOoLhHzPEa0")  [1440-08-empty-visual.jpg]
+       fix: make the visual draw at every width: a picture that loads, an effect that renders, or its still fallback; never an empty frame
+  FAIL no-visual       section#skills  "Kỹ năng. 31 công nghệ, 6 nhóm."
+       no picture, effect or mock in this section; a feature section needs a visual  [1440-11-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL copy-headline   h1#hero-h  "Tôi là Thanh Phương"
+       "Tôi là Thanh Phương" does not name what is sold (fullstack developer portfolio, fullstack, developer, portfolio, from flags); only the line under it does  [1440-01-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  FAIL photo-upscale   ul.projects__track > li:nth-of-type(2) > a.projects__shot > img  "img: Screenshot_2026-09-29_002522_ysyilo"
+       Screenshot_2026-09-29_002522_ysyilo.png: 420x192 shown at 421x263, blown up 1.37x  [1440-02-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  FAIL photo-upscale   ul.projects__track > li:nth-of-type(6) > a.projects__shot > img  "img: Screenshot_2026-09-29_002522_ysyilo"
+       Screenshot_2026-09-29_002522_ysyilo.png: 420x192 shown at 421x263, blown up 1.37x  [1440-12-photo-upscale.jpg]
+       fix: use a source at least as wide as the picture is shown (twice that for sharp screens)
+  WARN assets          (the page)
+       the data file project/verify-document/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/metaos/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/on-toeic/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/thuc-pham-quang-da/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/lani/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/landing-page-metadap/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file projects/__next.!KHZpKQ.projects.__PAGE__.txt?_rsc=dkbtJ1476HJvg8-O did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file __next.!KHZpKQ.__PAGE__.txt?_rsc=9X-T2x_f5ErnRK9R did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/tokenmall/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/risegate-asset-tokenization-platform/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/vide/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/check-in-event/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/bigbee/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file project/admin-system-collection/__next.!KHZpKQ.project.$d$slug.__PAGE__.txt?_rsc=eSFoyacrjcY_g6B3 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN assets          (the page)
+       the data file en/__next.!KGVuKQ.en.__PAGE__.txt?_rsc=g_84UwFBc59dVou9 did not load (404)
+       fix: fix the path, or remove the reference
+  WARN nav             header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo  "P Thanh Phương"
+       the nav is lopsided: its first item starts 7px inside the content's edge (64px), while its last ends on the other edge  [1440-03-nav.jpg]
+       fix: start the nav's first item and end its last on the content's two edges
+  WARN copy-buttons    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       "Tải CV" does not start with a verb (book, buy, try, start, get, see...)  [1440-04-copy-buttons.jpg]
+       fix: label buttons with a verb and what the visitor gets ("Book a room", "Start free trial")
+  WARN heading-scale   section#home > div.wrap > div.hero-text.hero-portrait > p.hero-portrait__greeting  "Xin chào"
+       1 line of plain text set larger than the section headings (121px against h2 48px)  [1440-05-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  WARN section-gaps    section#home / section#projects
+       117px between these sections, -48% against the median 225px  [1440-09-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    section#skills / footer#contact
+       286px between these sections, +27% against the median 225px  [1440-13-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN photo-set       ul.projects__track > li:nth-of-type(3) > a.projects__shot > img  "TzkRokvts9yf9XUkdO8z4zXCFys.png"
+       5 photographs in more than one look: lightness from 0.10 to 0.65; saturation from 0.23 to 0.54; the odd one out is TzkRokvts9yf9XUkdO8z4zXCFys.png  [1440-10-photo-set.jpg]
+       fix: grade the photographs to one look (light, colour, warmth), or replace the odd one out
+  WARN label-centre    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       its label sits 18px off-centre (25px of room at the left, 43px at the right)  [1440-06-label-centre.jpg]
+       fix: centre the label in its button, or fill the empty side with an icon
+  WARN visual-empty    ul.projects__track > li:nth-of-type(4) > a.projects__shot > img  "picture idX3SWLbFoGIAfCApb1vREVSPk.png"
+       the picture idX3SWLbFoGIAfCApb1vREVSPk.png is nearly empty at 1440px: 2 colours in its 421x263px, 97.5% one colour (a thin line drawing or a logo can be this plain: look at it)  [1440-14-visual-empty.jpg]
+       fix: make the visual draw at this width: a picture that loads, an effect that renders, or its still fallback; never an empty ground or frame
+  WARN visual-empty    ul.projects__track > li:nth-of-type(4) > a.projects__shot > img  "picture DLJUgRIaXBJC4RYi0svCJKjSI.png"
+       the picture DLJUgRIaXBJC4RYi0svCJKjSI.png is nearly empty at 1440px: 2 colours in its 421x263px, 99.6% one colour (a thin line drawing or a logo can be this plain: look at it)  [1440-15-visual-empty.jpg]
+       fix: make the visual draw at this width: a picture that loads, an effect that renders, or its still fallback; never an empty ground or frame
+  WARN moment-none     (the page)
+       a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)
+       fix: deal one (moments.mjs pick --page software) and mount it in its own section
+  WARN skip-link       header.nav.nav--centre > div.wrap.nav__bar > a.skip-link:nth-of-type(1)  "Bỏ qua đến nội dung"
+       the first Tab stop is "Bỏ qua đến nội dung", not a skip link: a keyboard user tabs through the whole nav on every visit
+       fix: add the starter's skip link as the header's first child: <a class="skip-link" href="#top">Skip to content</a>
+  WARN action-repeat   header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary:nth-of-type(2)  "tải cv"
+       "tải cv" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it  [1440-16-action-repeat.jpg]
+       fix: show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once
+  FAIL hidden-content  ul.projects__track > li:nth-of-type(1) > a.projects__shot > img  "the photograph Screenshot_2026-07-11_113"
+       with scripts switched off (a blocked or failed script) 2 lines stay hidden on the first screen, 1.5 s after load (pushed out of its overflow-hidden mask by a transform): "the photograph Scree": the page shows it only when a script reveals it  [1440-nojs-01-hidden-content.jpg]
+       fix: show the content at rest: the hidden state only under a class the script adds on its live path, never in the plain CSS (prefers-reduced-motion and a script that never runs show the finished page)
+  FAIL hero-screen     div.wrap > div.hero-text.hero-portrait > div.hero-portrait__figure > img  "Chân dung Hồ Văn Thanh Phương"
+       "Chân dung Hồ Văn Thanh Phương" ends at 900px, below the hero's content line at 876px (the 900px screen less 24px) (SR-1)  [1440-rhythm-01-hero-screen.jpg]
+       fix: keep the hero's content between the nav and 24px above the fold (and the action bar): shorten the picture or the text; a docked strip 96px at most
+  FAIL container-edges ul.skills__groups > li.skills__group:nth-of-type(1) > ul.skills__chips > li.skills__chip:nth-of-type(6)  "Material UI"
+       2 text blocks start on a left line at x 625, 561px from the container's left: text starts on the container's left, or on one split line (x 621, 732, 843) (also "Axios") (SR-6)  [1440-rhythm-02-container-edges.jpg]
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges section#home > div.wrap > div.hero-text.hero-portrait > p.hero-portrait__greeting  "Xin chào"
+       1 text block starts on a left line at x 518, 454px from the container's left: text starts on the container's left, or on one split line (x 621, 732, 843) (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges section#home > div.wrap > div.hero-text.hero-portrait > p.pill.hero-portrait__pill  "Sẵn sàng cho cơ hội mới"
+       1 text block starts on a left line at x 77, 13px from the container's left: text starts on the container's left, or on one split line (x 621, 732, 843) (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+
+390x844  7 screens  5 FAIL  4 WARN
+  FAIL empty-visual    ul.projects__track > li:nth-of-type(3) > a.projects__shot > img  "TzkRokvts9yf9XUkdO8z4zXCFys.png?scale-do"
+       the picture shows nothing here: with it hidden the screen looks the same (the picture is there but invisible: faded out, clipped or covered), so the visitor sees only the ground behind it (and 1 more like it: "idX3SWLbFoGIAfCApb1vREVS")  [390-03-empty-visual.jpg]
+       fix: make the visual draw at every width: a picture that loads, an effect that renders, or its still fallback; never an empty frame
+  FAIL empty-visual    ul.projects__track > li:nth-of-type(6) > a.projects__shot > img  "og-image.png?v=4"
+       the picture shows nothing here: 100% of it is one colour (#060912) (and 1 more like it: "oQYoVQDeWpZRiRLNZegGTlOS")  [390-07-empty-visual.jpg]
+       fix: make the visual draw at every width: a picture that loads, an effect that renders, or its still fallback; never an empty frame
+  FAIL spill           div.wrap > div.frame.projects__wall > div.stage.projects__stage > a.projects__pill  "P Xem tất cả dự án"
+       runs 118px past the right edge of the panel it sits on (div.projects__col:nth-of-type(1) > ul.projects__track > li:nth-of-type(3) > a.projects__shot)  [390-04-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL no-visual       section#skills  "Kỹ năng. 31 công nghệ, 6 nhóm."
+       no picture, effect or mock in this section; a feature section needs a visual  [390-09-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL section-gaps    section#projects / section#skills
+       284px between these sections, +79% against the median 159px  [390-08-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN heading-scale   section#home > div.wrap > div.hero-text.hero-portrait > p.hero-portrait__greeting  "Xin chào"
+       1 line of plain text set larger than the section headings (56px against h2 30px)  [390-01-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  WARN section-gaps    section#home / section#projects
+       94px between these sections, -41% against the median 159px  [390-05-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN photo-set       ul.projects__track > li:nth-of-type(7) > a.projects__shot > img  "TzkRokvts9yf9XUkdO8z4zXCFys.png"
+       7 photographs in more than one look: lightness from 0.10 to 0.83; saturation from 0.27 to 0.80; warm and cool photographs mixed (b* -11 to +24); the odd one out is TzkRokvts9yf9XUkdO8z4zXCFys.png  [390-06-photo-set.jpg]
+       fix: grade the photographs to one look (light, colour, warmth), or replace the odd one out
+  WARN label-centre    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Tải CV"
+       its label sits 18px off-centre (13px of room at the left, 31px at the right)  [390-02-label-centre.jpg]
+       fix: centre the label in its button, or fill the empty side with an icon
+
+first screen at 1280, 1152, 1024, 896, 768  0 FAIL  0 WARN
+
+the page at 320x640, walked for what runs past the screen's edge  0 FAIL
+
+checks
+  WARN assets                 PASS shader-lint            PASS gl-fallback            
+  FAIL empty-visual           PASS hero-fill              PASS flush                  
+  PASS placeholder            PASS sample-label           PASS caption                
+  PASS credit-wall            WARN nav                    PASS nav-covers             
+  FAIL spill                  PASS off-viewport           PASS fold-card              
+  SKIP hover-spill            PASS overlap-text           PASS collide                
+  PASS tap-size               PASS row-gap                PASS cut-text               
+  PASS fold-cut               PASS marquee                SKIP scroll-linked          
+  SKIP scroll-reveal          PASS pinned                 SKIP loop-pause             
+  SKIP reduced-motion         FAIL hidden-content         PASS webgl                  
+  FAIL no-visual              PASS text-only              PASS card-visual            
+  SKIP hidden-visual          PASS card-family            PASS card-layout            
+  PASS nesting                PASS effect-repeat          PASS ui-fit                 
+  PASS ui-centre              PASS dark-ground            PASS button-styles          
+  PASS button-shape           PASS same-action            PASS button-picture         
+  PASS cta                    PASS pricing-tiers          FAIL copy-headline          
+  PASS copy-fact              PASS copy-headings          WARN copy-buttons           
+  PASS copy-actions           WARN heading-scale          PASS stagger                
+  PASS top-stagger            PASS off-grid               PASS col-edge               
+  PASS right-edge             PASS centre-axis            PASS tilt                   
+  PASS contrast               PASS text-contrast          PASS body-size              
+  PASS busy-ground            FAIL section-gaps           PASS proximity              
+  PASS hole                   PASS links                  SKIP forms                  
+  FAIL photo-upscale          WARN photo-set              PASS photo-credit           
+  PASS nav-family             PASS nav-labels             PASS link-styles            
+  PASS heading-align          WARN label-centre           PASS fake-button            
+  PASS stranded-action        PASS orphan                 PASS unit-break             
+  PASS tab-wrap               PASS effects-fit            PASS fade-cut               
+  PASS photo-weight           PASS copy-length            PASS nav-current            
+  PASS progress-bar           PASS photo-repeat           PASS button-contrast        
+  PASS photo-print            PASS grounds                PASS split-align            
+  PASS fact-agree             PASS fold-action            PASS action-count           
+  PASS one-screen             SKIP hover                  SKIP hover-move             
+  PASS product-shown          PASS same-object            PASS font-load              
+  PASS visual-caption         WARN visual-empty           PASS effect-kind            
+  PASS hero-enter             WARN moment-none            PASS street-number          
+  PASS postcode               PASS coordinates            PASS company-number         
+  PASS phone-number           FAIL hero-screen            PASS section-height         
+  PASS section-air            PASS one-section            PASS one-heading            
+  FAIL container-edges        PASS row-lines              PASS split-pair             
+  PASS motion-layer           PASS count-text             PASS loop-cycle             
+  PASS section-tile           PASS empty-area             PASS a11y-name              
+  PASS img-alt                PASS field-label            PASS heading-order          
+  PASS tabindex               PASS focus-ring             PASS focus-visible          
+  PASS focus-hidden           WARN skip-link              PASS menu-toggle            
+  PASS lang                   PASS page-meta              PASS share-meta             
+  WARN action-repeat          PASS map-link               PASS open-now               
+  PASS assumed                PASS run-on                 PASS form-fields            
+  PASS form-send              
+
+total  16 FAIL  31 WARN  (crops and report.json in D:\WorkSpaces\project\phuong-portfolio-v3\out\.taste-skill\consistency)
